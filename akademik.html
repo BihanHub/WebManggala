@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manggala · akademik (fixed buttons)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #6d2e3f 0%, #944d5c 70%, #b16d7a 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .akademik-page {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .section-card {
+            animation: fadeUp 0.7s ease forwards;
+            opacity: 0;
+            background: #faf7f2;
+            border: 2px solid #c8935f;
+            border-radius: 3rem 3rem 3rem 3rem;
+            box-shadow: 0 30px 40px -18px rgba(90, 30, 30, 0.5), inset 0 0 0 1px rgba(255, 235, 200, 0.6);
+            padding: 2.8rem 3.2rem 3.5rem 3.2rem;
+            width: 100%;
+            margin-bottom: 35px;
+            transition: box-shadow 0.2s;
+        }
+
+        .section-card:hover {
+            box-shadow: 0 30px 50px -15px #621f1f;
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* scroll navigation bar - identical in every section */
+        .scroll-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem 2rem;
+            margin: 0 0 2rem 0;
+            background: rgba(255, 245, 235, 0.7);
+            backdrop-filter: blur(4px);
+            padding: 1rem 2rem;
+            border-radius: 80px;
+            border: 2px solid #d99f62;
+            box-shadow: 0 10px 20px rgba(80, 25, 25, 0.2);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: #591f2a;
+            padding: 0.5rem 1.8rem;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            border: 2px solid transparent;
+        }
+
+        .nav-btn:hover {
+            background: #a5424b;
+            color: white;
+            border-color: #f5cb8b;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn i { font-size: 1.5rem; font-style: normal; }
+
+        /* section headers */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0 2rem 0;
+            border-left: 8px solid #b13e5c;
+            padding-left: 1.5rem;
+        }
+        .section-icon {
+            font-size: 2.4rem;
+            background: #ecd6b9;
+            width: 65px;
+            height: 65px;
+            border-radius: 30% 70% 70% 30% / 30% 55% 45% 70%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #c58f56;
+            color: #751f2f;
+        }
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #64222e;
+            letter-spacing: -0.01em;
+        }
+        .section-title span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #b7624a;
+            margin-left: 1.2rem;
+            background: #f7e2cd;
+            padding: 0.3rem 1.4rem;
+            border-radius: 40px;
+            border: 1px solid #cf9f62;
+        }
+
+        /* content grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0 1.5rem 0;
+        }
+
+        /* video card */
+        .video-card-distinct {
+            background: #fffcf7;
+            border: 2px solid #cf9a62;
+            border-radius: 2.5rem 2.5rem 2rem 2rem;
+            overflow: hidden;
+            transition: 0.2s;
+            box-shadow: 0 15px 22px -12px #9e5252;
+        }
+        .video-card-distinct:hover {
+            transform: scale(1.01) rotate(0.5deg);
+            border-color: #ac3f4b;
+        }
+        .video-thumb {
+            background: #412f28;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: repeating-linear-gradient(45deg, #5f4236 0px, #5f4236 10px, #7a5b4b 10px, #7a5b4b 20px);
+            position: relative;
+        }
+        .video-thumb::after {
+            content: "▶";
+            font-size: 2.6rem;
+            color: white;
+            background: #b13e5c;
+            width: 60px;
+            height: 60px;
+            border-radius: 40% 60% 40% 60%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #fad28c;
+        }
+        .video-info {
+            padding: 1.5rem 1.5rem 2rem;
+        }
+        .video-info h4 {
+            font-size: 1.6rem;
+            color: #64222e;
+            margin-bottom: 0.2rem;
+        }
+        .video-meta {
+            display: flex;
+            gap: 1.2rem;
+            color: #bd7846;
+            font-weight: 600;
+            margin: 0.5rem 0 0.8rem;
+        }
+        .video-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+        .tag-distinct {
+            background: #e8cfb2;
+            padding: 0.2rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #591f2a;
+            border: 1px solid #b47947;
+        }
+
+        /* doc card */
+        .doc-card-distinct {
+            background: #fff7ee;
+            border: 2px solid #c58f5e;
+            border-radius: 2rem 2rem 2rem 2rem;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 18px rgba(150, 70, 50, 0.15);
+            border-bottom: 6px solid #a5424b;
+        }
+        .doc-icon {
+            font-size: 3rem;
+            margin-bottom: 0.2rem;
+        }
+        .doc-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #64222e;
+        }
+        .doc-desc {
+            color: #674534;
+            margin: 0.6rem 0 1.2rem;
+        }
+        .doc-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 2px dotted #ca975c;
+            padding-top: 1rem;
+        }
+        .doc-type {
+            background: #a5424b;
+            color: white;
+            border-radius: 40px;
+            padding: 0.2rem 1.4rem;
+            font-weight: 600;
+        }
+        .doc-download {
+            font-weight: 600;
+            color: #b7624a;
+        }
+
+        /* exercise card */
+        .exercise-card-distinct {
+            background: linear-gradient(135deg, #fdf3e6, #fae2cf);
+            border: 2px solid #c58f56;
+            border-radius: 3rem 2rem 3rem 2rem;
+            padding: 2rem 1.8rem;
+        }
+        .ex-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .ex-icon {
+            font-size: 2.2rem;
+        }
+        .ex-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #75282e;
+        }
+        .ex-meta {
+            display: flex;
+            gap: 1rem;
+            margin: 0.8rem 0 1.2rem;
+            flex-wrap: wrap;
+        }
+        .difficulty {
+            background: #b9814b;
+            color: white;
+            font-weight: 600;
+            padding: 0.3rem 1.5rem;
+            border-radius: 30px;
+        }
+        .questions {
+            background: #e8cfb2;
+            padding: 0.3rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            color: #591f2a;
+        }
+        .start-btn {
+            background: #a5424b;
+            border: none;
+            border-radius: 60px;
+            padding: 0.9rem 2rem;
+            font-weight: 700;
+            color: white;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 1rem;
+            cursor: pointer;
+            border: 2px solid #f5cb8b;
+            transition: 0.15s;
+        }
+        .start-btn:hover {
+            background: #832e3f;
+        }
+
+        /* filter bar */
+        .org-bar-mini {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.8rem;
+            background: #fae7d5;
+            border-radius: 50px;
+            padding: 0.6rem 1.8rem;
+            border: 2px solid #cf9f62;
+            width: fit-content;
+            margin-bottom: 2rem;
+        }
+        .org-pill {
+            background: white;
+            border: 1px solid #b47947;
+            border-radius: 40px;
+            padding: 0.3rem 1.3rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #75282e;
+            cursor: default;
+        }
+        .org-pill.active {
+            background: #a5424b;
+            color: white;
+            border-color: #a5424b;
+        }
+
+        /* bottom accent */
+        .bottom-accent {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            color: #b16f40;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-top: 3px solid #c8935f;
+            width: 100%;
+            padding-top: 1.8rem;
+        }
+        .bottom-accent span {
+            color: #832e3f;
+            background: #fcefe1;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid #c58f56;
+        }
+
+        .section-card {
+            scroll-margin-top: 30px;
+        }
+
+        .simple-intro {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #f7e2cd;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+<div class="akademik-page">
+
+    <div class="simple-intro">📘 akademik · pilih materi</div>
+
+    <!-- ================= SECTION 1: VIDEO ================= -->
+    <div class="section-card" id="videoSection">
+        <!-- video section navigation bar (all three buttons) -->
+        <div class="scroll-nav">
+            <button class="nav-btn" data-target="video"><i>🎬</i> Video</button>
+            <button class="nav-btn" data-target="pdf"><i>📄</i> PDF/PPT</button>
+            <button class="nav-btn" data-target="exercise"><i>✏️</i> Exercise</button>
+        </div>
+
+        <div class="section-header">
+            <span class="section-icon">🎬</span>
+            <div class="section-title">video learning <span>12 materi</span></div>
+        </div>
+
+        <div class="org-bar-mini">
+            <span class="org-pill active">semua</span>
+            <span class="org-pill">terbaru</span>
+            <span class="org-pill">populer</span>
+        </div>
+
+        <div class="content-grid">
+            <div class="video-card-distinct">
+                <div class="video-thumb"></div>
+                <div class="video-info">
+                    <h4>Algoritma & pemrograman</h4>
+                    <div class="video-meta"><span>⏱️ 24 menit</span><span>📅 2025</span></div>
+                    <p>Pengantar logika dan flowchart.</p>
+                    <div class="video-tags"><span class="tag-distinct">dasar</span><span class="tag-distinct">informatika</span></div>
+                </div>
+            </div>
+            <div class="video-card-distinct">
+                <div class="video-thumb"></div>
+                <div class="video-info">
+                    <h4>Struktur data</h4>
+                    <div class="video-meta"><span>⏱️ 37 menit</span><span>📅 2025</span></div>
+                    <p>Array, linked list, stack.</p>
+                    <div class="video-tags"><span class="tag-distinct">lanjutan</span><span class="tag-distinct">tree</span></div>
+                </div>
+            </div>
+            <div class="video-card-distinct">
+                <div class="video-thumb"></div>
+                <div class="video-info">
+                    <h4>Basis data (SQL)</h4>
+                    <div class="video-meta"><span>⏱️ 42 menit</span><span>📅 2025</span></div>
+                    <p>Query, join, normalisasi.</p>
+                    <div class="video-tags"><span class="tag-distinct">database</span><span class="tag-distinct">sql</span></div>
+                </div>
+            </div>
+            <div class="video-card-distinct">
+                <div class="video-thumb"></div>
+                <div class="video-info">
+                    <h4>UI/UX dasar</h4>
+                    <div class="video-meta"><span>⏱️ 18 menit</span><span>📅 2025</span></div>
+                    <p>Prinsip desain antarmuka.</p>
+                    <div class="video-tags"><span class="tag-distinct">desain</span><span class="tag-distinct">figma</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-accent">
+            <span>📚 modul video</span>
+        </div>
+    </div>
+
+    <!-- ================= SECTION 2: PDF/PPT ================= -->
+    <div class="section-card" id="pdfSection">
+        <!-- pdf section navigation bar (all three buttons) -->
+        <div class="scroll-nav">
+            <button class="nav-btn" data-target="video"><i>🎬</i> Video</button>
+            <button class="nav-btn" data-target="pdf"><i>📄</i> PDF/PPT</button>
+            <button class="nav-btn" data-target="exercise"><i>✏️</i> Exercise</button>
+        </div>
+
+        <div class="section-header">
+            <span class="section-icon">📄</span>
+            <div class="section-title">PDF & presentasi <span>8 materi</span></div>
+        </div>
+
+        <div class="org-bar-mini">
+            <span class="org-pill active">semua</span>
+            <span class="org-pill">PDF</span>
+            <span class="org-pill">PPT</span>
+        </div>
+
+        <div class="content-grid">
+            <div class="doc-card-distinct">
+                <span class="doc-icon">📕</span>
+                <div class="doc-title">Pengantar jaringan</div>
+                <div class="doc-desc">Modul 5 bab: OSI, TCP/IP.</div>
+                <div class="doc-footer"><span class="doc-type">PDF</span><span class="doc-download">⬇️ 120x</span></div>
+            </div>
+            <div class="doc-card-distinct">
+                <span class="doc-icon">📊</span>
+                <div class="doc-title">Statistik deskriptif</div>
+                <div class="doc-desc">Slide kuliah + contoh soal (PPT).</div>
+                <div class="doc-footer"><span class="doc-type">PPTX</span><span class="doc-download">⬇️ 84x</span></div>
+            </div>
+            <div class="doc-card-distinct">
+                <span class="doc-icon">📘</span>
+                <div class="doc-title">Riset operasi</div>
+                <div class="doc-desc">Program linear, simpleks.</div>
+                <div class="doc-footer"><span class="doc-type">PDF</span><span class="doc-download">⬇️ 63x</span></div>
+            </div>
+            <div class="doc-card-distinct">
+                <span class="doc-icon">📂</span>
+                <div class="doc-title">Manajemen proyek</div>
+                <div class="doc-desc">Modul PMBOK ringkasan.</div>
+                <div class="doc-footer"><span class="doc-type">PDF</span><span class="doc-download">⬇️ 47x</span></div>
+            </div>
+        </div>
+
+        <div class="bottom-accent">
+            <span>📑 materi & slide</span>
+        </div>
+    </div>
+
+    <!-- ================= SECTION 3: EXERCISE ================= -->
+    <div class="section-card" id="exerciseSection">
+        <!-- exercise section navigation bar (all three buttons) -->
+        <div class="scroll-nav">
+            <button class="nav-btn" data-target="video"><i>🎬</i> Video</button>
+            <button class="nav-btn" data-target="pdf"><i>📄</i> PDF/PPT</button>
+            <button class="nav-btn" data-target="exercise"><i>✏️</i> Exercise</button>
+        </div>
+
+        <div class="section-header">
+            <span class="section-icon">✏️</span>
+            <div class="section-title">exercise & kuis <span>6 topik</span></div>
+        </div>
+
+        <div class="org-bar-mini">
+            <span class="org-pill active">semua</span>
+            <span class="org-pill">mudah</span>
+            <span class="org-pill">sedang</span>
+            <span class="org-pill">sulit</span>
+        </div>
+
+        <div class="content-grid">
+            <div class="exercise-card-distinct">
+                <div class="ex-header"><span class="ex-icon">📝</span><span class="ex-title">Algoritma dasar</span></div>
+                <p>10 PG, 5 esai.</p>
+                <div class="ex-meta"><span class="difficulty">mudah</span><span class="questions">15 soal</span></div>
+                <button class="start-btn" onclick="alert('latihan dimulai (demo)')">mulai <span>→</span></button>
+            </div>
+            <div class="exercise-card-distinct">
+                <div class="ex-header"><span class="ex-icon">🧮</span><span class="ex-title">Kalkulus I</span></div>
+                <p>Turunan dan integral dasar.</p>
+                <div class="ex-meta"><span class="difficulty">sedang</span><span class="questions">12 soal</span></div>
+                <button class="start-btn" onclick="alert('latihan dimulai (demo)')">mulai <span>→</span></button>
+            </div>
+            <div class="exercise-card-distinct">
+                <div class="ex-header"><span class="ex-icon">💻</span><span class="ex-title">SQL queries</span></div>
+                <p>Join, subquery, grouping.</p>
+                <div class="ex-meta"><span class="difficulty">menengah</span><span class="questions">8 soal</span></div>
+                <button class="start-btn" onclick="alert('latihan dimulai (demo)')">mulai <span>→</span></button>
+            </div>
+            <div class="exercise-card-distinct">
+                <div class="ex-header"><span class="ex-icon">🔧</span><span class="ex-title">Struktur data</span></div>
+                <p>Stack, queue, tree traversal.</p>
+                <div class="ex-meta"><span class="difficulty">sulit</span><span class="questions">10 soal</span></div>
+                <button class="start-btn" onclick="alert('latihan dimulai (demo)')">mulai <span>→</span></button>
+            </div>
+        </div>
+
+        <div class="bottom-accent">
+            <span>🏋️ latihan interaktif</span>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin: 1.5rem 0; color: #f5dbb1; font-weight: 400;">⬆ gunakan navigasi di atas untuk berpindah bagian</div>
+</div>
+
+<script>
+    (function() {
+        // Get all section elements
+        const sections = {
+            video: document.getElementById('videoSection'),
+            pdf: document.getElementById('pdfSection'),
+            exercise: document.getElementById('exerciseSection')
+        };
+
+        // Helper to trigger fade animation
+        function triggerFade(element) {
+            element.style.animation = 'none';
+            void element.offsetHeight; // reflow
+            element.style.animation = 'fadeUp 0.7s ease forwards';
+        }
+
+        // Attach click handlers to all nav buttons
+        document.querySelectorAll('.nav-btn[data-target]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = btn.getAttribute('data-target'); // 'video', 'pdf', or 'exercise'
+                const targetSection = sections[targetId];
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    triggerFade(targetSection);
+                }
+            });
+        });
+
+        // Pill interactivity (demo)
+        document.querySelectorAll('.org-bar-mini').forEach(group => {
+            const pills = group.querySelectorAll('.org-pill');
+            pills.forEach(pill => {
+                pill.addEventListener('click', function() {
+                    pills.forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    })();
+</script>
+</body>
+</html>
