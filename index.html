@@ -1,650 +1,1614 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manggala · enhanced + news · gallery</title>
+    <title>INI LHO ITS! 2025 - Dies Natalis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        :root {
+            --purple-deep: #4a154b;
+            --purple-primary: #6b1d6e;
+            --purple-medium: #8e2a8f;
+            --purple-light: #b84dba;
+            --purple-soft: #d98cdb;
+            --pink-primary: #e84393;
+            --pink-light: #fd79a8;
+            --pink-soft: #fdc6d9;
+            --pink-pastel: #ffe0e8;
+            --white: #ffffff;
+            --gray-light: #f8f5f9;
+            --gray-medium: #e8e0ec;
+            --text-dark: #2d1a2e;
+            --text-medium: #5c3d5e;
+            --text-light: #8a6d8c;
+            --shadow-sm: 0 2px 8px rgba(107, 29, 110, 0.08);
+            --shadow-md: 0 4px 20px rgba(107, 29, 110, 0.15);
+            --shadow-lg: 0 8px 40px rgba(107, 29, 110, 0.2);
+            --shadow-glow: 0 0 30px rgba(232, 67, 147, 0.3);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background: linear-gradient(145deg, #7a1f1f 0%, #a33a3a 70%, #b84d4d 100%);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fdf2f8 0%, #faf5fc 25%, #fdf2fa 50%, #f8f0fa 75%, #fef5f9 100%);
+            background-attachment: fixed;
+            color: var(--text-dark);
             min-height: 100vh;
-            margin: 0;
-            padding: 1.5rem;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        .card {
-            max-width: 1200px;
-            width: 100%;
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid rgba(184, 77, 186, 0.18);
+            padding: 0 2rem;
+            transition: var(--transition);
+            box-shadow: 0 2px 20px rgba(107, 29, 110, 0.06);
+            will-change: box-shadow, background;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.97);
+            box-shadow: 0 4px 30px rgba(107, 29, 110, 0.12);
+        }
+
+        .navbar-inner {
+            max-width: 1300px;
             margin: 0 auto;
-        }
-
-        /* --- fade animation (all sections) --- */
-        .main-layout, .second-layout, .third-layout, .fourth-layout {
-            animation: fadeIn 0.6s ease forwards;
-            opacity: 0;  
-        }
-
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(6px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .main-layout,
-        .second-layout,
-        .third-layout,
-        .fourth-layout {
-            padding: 3rem 3.5rem 4rem 3.5rem;
-            background: white;
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto 30px auto;          /* reduced gap for better flow */
-            border: 2px solid #c08e4b;
-            border-radius: 2.5rem;
-            box-shadow: 0 25px 50px -12px rgba(70, 10, 10, 0.6);
-            overflow: hidden;
-        }
-
-        /* --- TOP BAR unified --- */
-        .top-bar {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 2.5rem;
-            flex-wrap: wrap;
-            gap: 1.5rem 2rem;
+            justify-content: space-between;
+            height: 70px;
+            gap: 2rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .logo-icon {
+            width: 46px;
+            height: 46px;
+            background: linear-gradient(135deg, var(--purple-primary), var(--pink-primary));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 1.1rem;
+            letter-spacing: -0.5px;
+            box-shadow: var(--shadow-glow);
+            transition: var(--transition);
+        }
+
+        .logo-section:hover .logo-icon {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(232, 67, 147, 0.45);
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--text-dark);
+            line-height: 1.2;
+            letter-spacing: -0.3px;
+        }
+
+        .logo-text span {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--purple-light);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            font-size: 1.2rem;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-            color: #9e2a2a;
-            background: #fff6ed;
-            padding: 0.6rem 1.8rem;
-            border-radius: 60px;
-            border: 2px solid #e0b87b;
-            gap: 1.2rem;
-        }
-
-        .nav-item {
-            cursor: pointer;
-            padding: 0.2rem 0.5rem;
-            color: #9e2a2a;
-            background: transparent;
-            transition: all 0.1s ease;
-            border-radius: 30px;
-            border: none;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-        .nav-item:hover {
-            color: #c99f4c;
-            background: rgba(224, 184, 123, 0.15);
-        }
-
-        .logo-placeholder {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 56px;
-        }
-
-        /* --- HERO (shared) --- */
-        .hero-title {
-            margin: 1rem 0 0 0;
-            text-align: left;
-            position: relative;
-        }
-
-        .title-main {
-            font-size: clamp(4.5rem, 12vw, 6rem);
-            font-weight: 800;
-            line-height: 1.0;
-            letter-spacing: -0.02em;
-            color: #8b1a1a;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            width: 100%;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-left {
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            z-index: 5;
-        }
-
-        .title-main .manggala {
-            color: #a13131;
-            text-shadow: 2px 2px 0 #f7d9aa;
-            font-size: 1.4em;
-            line-height: 1;
-        }
-
-        .title-main .integrated {
-            font-weight: 600;
-            color: #b37b3f;
-            font-size: 0.45em;
-            margin-top: 0.2rem;
-            letter-spacing: 0.1em;
-        }
-
-        .logoM {
-            position: absolute;
-            right: 0;
-            top: 0;
-            max-height: 400px;  
-            left: 0.4; 
-            padding-right: 0px;
-            width: auto;
-            z-index: 0;
-            filter: drop-shadow(0 8px 12px rgba(120, 30, 30, 0.3));
-            pointer-events: none;
-        }
-
-        .hero-right {
-            position: relative;
-            width: 180px;
-            flex-shrink: 0;
-            visibility: hidden;
-        }
-
-        @media (max-width: 800px) {
-            .hero-right { width: 100px; }
-            .logoM { max-height: 200px; top: 0rem; }
-        }
-        @media (max-width: 600px) {
-            .hero-right { width: 60px; }
-            .logoM { max-height: 150px; top: 1rem; }
-            .title-main { font-size: clamp(3rem, 8vw, 4rem); }
-        }
-
-        /* --- CTA / buttons --- */
-        .cta-section {
-            margin-top: 3rem;
-            display: flex;
-            align-items: center;
+            gap: 0.4rem;
+            list-style: none;
             flex-wrap: wrap;
-            gap: 2rem;
-            position: relative;
-            z-index: 15;
+            justify-content: center;
         }
 
-        .take-a-look {
-            background: #b13e3e;
-            border: none;
-            border-radius: 100px;
-            padding: 1.2rem 4rem 1.2rem 3.2rem;
-            font-size: 1.8rem;
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-medium);
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: var(--transition);
+            position: relative;
+            white-space: nowrap;
+            letter-spacing: -0.2px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--purple-primary);
+            background: rgba(184, 77, 186, 0.08);
+        }
+
+        .nav-links a.active {
             font-weight: 600;
+            background: rgba(184, 77, 186, 0.12);
+        }
+
+        .nav-auth {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .btn-login {
+            padding: 0.55rem 1.4rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            letter-spacing: -0.2px;
+            background: transparent;
+            color: var(--purple-primary);
+            border: 2px solid var(--purple-soft);
+        }
+
+        .btn-login:hover {
+            background: rgba(184, 77, 186, 0.08);
+            border-color: var(--purple-light);
+        }
+
+        .btn-signup {
+            padding: 0.55rem 1.4rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            letter-spacing: -0.2px;
+            background: linear-gradient(135deg, var(--purple-primary), var(--pink-primary));
             color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(232, 67, 147, 0.3);
+        }
+
+        .btn-signup:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(232, 67, 147, 0.45);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--purple-primary);
+            padding: 0.5rem;
+        }
+
+        /* ===== HERO / DASHBOARD ===== */
+        .hero-section {
+            padding-top: 110px;
+            padding-bottom: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.15;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-content h1 .gradient-text {
+            background: linear-gradient(135deg, var(--purple-primary) 0%, var(--pink-primary) 50%, var(--purple-light) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-medium);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.8rem;
-            box-shadow: 0 15px 25px -8px #732020;
+            gap: 8px;
+            background: rgba(184, 77, 186, 0.1);
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--purple-primary);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-badge .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--pink-primary);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.6);
+            }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.95rem;
             cursor: pointer;
-            letter-spacing: 0.02em;
-            border: 2px solid #e5b96e;
-            transition: background 0.15s, transform 0.15s;
-        }
-
-        .take-a-look:hover {
-            background: #922d2d;
-            transform: scale(1.01);
-        }
-
-        .take-a-look:after {
-            content: "→";
-            font-size: 2.2rem;
-            font-weight: 300;
-            line-height: 1;
-            margin-left: 0.2rem;
-            transition: transform 0.2s;
-            color: #f5cb8b;
-        }
-
-        .take-a-look:hover:after {
-            transform: translateX(5px);
-        }
-
-        .look-hint {
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: #b37b3f;
-            border-bottom: 2px dotted #c99f4c;
-            padding-bottom: 4px;
-        }
-
-        /* bottom accent (unified) */
-        .bottom-accent {
-            margin-top: 4rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: #b37b3f;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border-top: 3px solid #dbb168;
-            width: 100%;
-            padding-top: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        .bottom-accent .left-accent {
-            display: flex;
-            gap: 1.8rem;
-            flex-wrap: wrap;
-        }
-        .bottom-accent span {
-            cursor: default;
-            color: #9e2a2a;
-            background: #fcf3e7;
-            padding: 0.2rem 1rem;
-            border-radius: 30px;
-            border: 1px solid #e5b96e;
-        }
-
-        /* ---------- ACADEMIC DASHBOARD (second layout) ---------- */
-        .academic-dashboard {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin: 2.5rem 0 1.5rem 0;
-        }
-        .calender-card, .event-card, .student-stats {
-            background: #fefaf5;
-            border: 2px solid #e0b87b;
-            border-radius: 2rem;
-            padding: 1.5rem 1.8rem;
-            box-shadow: 0 10px 20px rgba(110, 30, 30, 0.1);
-            flex: 1 1 200px;
-        }
-        .calender-card h3, .event-card h3, .student-stats h3 {
-            font-size: 1.5rem;
-            color: #8b1a1a;
-            border-bottom: 2px dashed #dbb168;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-        .mini-calendar {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 0.3rem;
-            font-size: 0.9rem;
-            text-align: center;
-            color: #3f2b1b;
-        }
-        .cal-day {
-            background: #f7e9da;
-            border-radius: 30px;
-            padding: 0.3rem 0;
-            font-weight: 600;
-            color: #7a3a2e;
-        }
-        .cal-date {
-            background: #fff;
-            border-radius: 30px;
-            padding: 0.4rem 0;
-            border: 1px solid #ebc99b;
-        }
-        .event-item {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            margin-bottom: 1.2rem;
-        }
-        .event-badge {
-            background: #b13e3e;
+            transition: var(--transition);
+            text-decoration: none;
+            letter-spacing: -0.2px;
+            background: linear-gradient(135deg, var(--purple-primary), var(--pink-primary));
             color: white;
-            font-weight: 600;
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-            font-size: 0.8rem;
+            border: none;
+            box-shadow: 0 6px 24px rgba(232, 67, 147, 0.35);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
-        .event-desc { color: #3f2b1b; font-weight: 500; }
-        .jurusan-row {
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(232, 67, 147, 0.5);
+        }
+
+        .btn-outline {
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            letter-spacing: -0.2px;
+            background: transparent;
+            color: var(--purple-primary);
+            border: 2.5px solid var(--purple-soft);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-outline:hover {
+            background: rgba(184, 77, 186, 0.06);
+            border-color: var(--purple-light);
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
-            border-bottom: 1px dotted #e0b87b;
-            padding-bottom: 0.3rem;
+            justify-content: center;
+            align-items: center;
         }
-        .jurusan-name { font-weight: 600; color: #9e2a2a; }
-        .jurusan-count { background: #f0dbb8; padding: 0.2rem 1rem; border-radius: 40px; font-weight: 700; color: #691c1c; }
-        .total-badge {
-            margin-top: 1rem;
-            background: #dbb168;
-            color: #3f1c1c;
-            padding: 0.5rem 1rem;
-            border-radius: 60px;
-            font-weight: 700;
+
+        .hero-card-stack {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            aspect-ratio: 1 / 1;
+        }
+
+        .hero-floating-card {
+            position: absolute;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            background: white;
+        }
+
+        .hero-floating-card.card-main {
+            width: 75%;
+            aspect-ratio: 1 / 1;
+            top: 10%;
+            left: 12.5%;
+            background: linear-gradient(145deg, #ffffff, #fdf2fa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+            border: 2px solid rgba(184, 77, 186, 0.2);
+        }
+
+        .card-main-inner {
             text-align: center;
-            font-size: 1.1rem;
+            padding: 2rem;
         }
 
-        /* ---------- NEWS section (third layout) ---------- */
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
-            gap: 1.8rem;
-            margin: 2.5rem 0;
+        .card-main-inner .big-number {
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--purple-primary), var(--pink-primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
         }
-        .news-card {
-            background: #fef6ec;
-            border: 2px solid #e5b96e;
-            border-radius: 2rem;
-            padding: 1.5rem 1.5rem 2rem;
-            transition: 0.2s;
-        }
-        .news-card:hover { background: #faead7; }
-        .news-date {
-            color: #b13e3e;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            font-size: 0.9rem;
-        }
-        .news-title {
-            font-size: 1.6rem;
+
+        .card-main-inner .big-label {
             font-weight: 700;
-            color: #691c1c;
-            line-height: 1.2;
-        }
-        .news-excerpt {
-            margin-top: 0.8rem;
-            color: #4f3620;
-        }
-        .news-tag {
-            display: inline-block;
-            margin-top: 1.2rem;
-            background: #eaceaa;
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #7a2e2e;
+            color: var(--text-medium);
+            font-size: 1rem;
+            letter-spacing: 1px;
         }
 
-        /* ---------- GALLERY AKADEMIK (fourth layout) ---------- */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin: 2.5rem 0;
-        }
-        .gallery-item {
-            background: #fbead8;
-            border: 2px solid #d5a458;
-            border-radius: 2rem;
-            aspect-ratio: 1/1;
+        .hero-floating-card.card-top-right {
+            width: 40%;
+            aspect-ratio: 1.3 / 1;
+            top: 2%;
+            right: 4%;
+            z-index: 4;
+            background: white;
+            padding: 1rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 1rem;
-            color: #691c1c;
-            font-weight: 600;
-            transition: 0.15s;
-            box-shadow: 0 8px 12px rgba(100,40,20,0.1);
+            border: 2px solid rgba(253, 121, 168, 0.3);
         }
-        .gallery-item span { font-size: 3rem; margin-bottom: 0.5rem; }
-        .gallery-item p { font-size: 1.1rem; background: #f7dbb0; padding: 0.2rem 1rem; border-radius: 60px; }
-        .gallery-item:hover { background: #f7dbb0; transform: scale(0.98); }
 
-        @media (max-width: 650px) {
-            .main-layout, .second-layout, .third-layout, .fourth-layout {
+        .hero-floating-card.card-top-right .icon-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--pink-soft), var(--pink-pastel));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--pink-primary);
+            margin-bottom: 6px;
+        }
+
+        .hero-floating-card.card-top-right .stat-num {
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--text-dark);
+        }
+
+        .hero-floating-card.card-top-right .stat-lbl {
+            font-size: 0.7rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .hero-floating-card.card-bottom-left {
+            width: 38%;
+            aspect-ratio: 1.3 / 1;
+            bottom: 5%;
+            left: 3%;
+            z-index: 4;
+            background: white;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid rgba(142, 42, 143, 0.25);
+        }
+
+        .hero-floating-card.card-bottom-left .icon-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e8d5f5, #f3e3fa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--purple-medium);
+            margin-bottom: 6px;
+        }
+
+        .hero-floating-card.card-bottom-left .stat-num {
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--text-dark);
+        }
+
+        .hero-floating-card.card-bottom-left .stat-lbl {
+            font-size: 0.7rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* ===== DASHBOARD STATS BAR ===== */
+        .stats-bar {
+            max-width: 1300px;
+            margin: 2rem auto 0;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: var(--radius-lg);
+            padding: 1.4rem 1.2rem;
+            text-align: center;
+            border: 1.5px solid rgba(184, 77, 186, 0.15);
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            will-change: transform;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(232, 67, 147, 0.3);
+        }
+
+        .stat-card .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.4rem;
+            display: block;
+        }
+        .stat-card .stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--purple-primary), var(--pink-primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-card .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== EVENTS SECTION ===== */
+        .section-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header .section-tag {
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+        }
+
+        .section-tag.purple {
+            background: rgba(142, 42, 143, 0.1);
+            color: var(--purple-primary);
+        }
+        .section-tag.pink {
+            background: rgba(232, 67, 147, 0.1);
+            color: var(--pink-primary);
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .section-header p {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1.5px solid rgba(184, 77, 186, 0.12);
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            will-change: transform;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(232, 67, 147, 0.35);
+        }
+
+        .event-card-image {
+            height: 170px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-card-image .img-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: white;
+        }
+
+        .img-placeholder.grad-purple {
+            background: linear-gradient(135deg, #7b2cbf, #9d4edd);
+        }
+        .img-placeholder.grad-pink {
+            background: linear-gradient(135deg, #e84393, #fd79a8);
+        }
+        .img-placeholder.grad-mixed {
+            background: linear-gradient(135deg, #6b1d6e, #c44d8f);
+        }
+        .img-placeholder.grad-soft {
+            background: linear-gradient(135deg, #b84dba, #e89ac7);
+        }
+
+        .event-card-badge {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.35rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--purple-primary);
+            letter-spacing: 0.5px;
+        }
+
+        .event-card-body {
+            padding: 1.3rem;
+        }
+
+        .event-card-body h3 {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.4rem;
+            color: var(--text-dark);
+            letter-spacing: -0.3px;
+        }
+        .event-card-body .event-date {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .event-card-body .event-desc {
+            font-size: 0.85rem;
+            color: var(--text-medium);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .btn-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.55rem 1.3rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            letter-spacing: -0.2px;
+            background: linear-gradient(135deg, var(--purple-primary), var(--pink-primary));
+            color: white;
+            border: none;
+            box-shadow: 0 3px 12px rgba(232, 67, 147, 0.25);
+        }
+        .btn-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232, 67, 147, 0.4);
+        }
+
+        .btn-card.outline {
+            background: transparent;
+            color: var(--purple-primary);
+            border: 2px solid var(--purple-soft);
+            box-shadow: none;
+        }
+        .btn-card.outline:hover {
+            background: rgba(184, 77, 186, 0.06);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ===== REGISTRATION CTA BANNER ===== */
+        .cta-banner {
+            max-width: 1300px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-inner {
+            background: linear-gradient(135deg, #fdf2fa 0%, #fef5f9 40%, #faf0fa 100%);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+            border: 2px dashed rgba(184, 77, 186, 0.3);
+            position: relative;
+        }
+
+        .cta-text h3 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-dark);
+        }
+        .cta-text p {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .modal-dialog {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 520px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        .modal-overlay.active .modal-dialog {
+            transform: translateY(0);
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: var(--transition);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-close:hover {
+            background: rgba(184, 77, 186, 0.08);
+            color: var(--purple-primary);
+        }
+        .modal-dialog h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.3rem;
+            letter-spacing: -0.4px;
+            color: var(--text-dark);
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 0.35rem;
+            color: var(--text-medium);
+            letter-spacing: -0.2px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border-radius: var(--radius-sm);
+            border: 2px solid var(--gray-medium);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            background: var(--gray-light);
+            color: var(--text-dark);
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--purple-light);
+            box-shadow: 0 0 0 4px rgba(184, 77, 186, 0.08);
+            background: white;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            background: linear-gradient(135deg, var(--purple-primary), var(--pink-primary));
+            color: white;
+            border: none;
+            box-shadow: 0 4px 18px rgba(232, 67, 147, 0.3);
+            letter-spacing: -0.2px;
+            margin-top: 0.5rem;
+        }
+        .btn-submit:hover {
+            box-shadow: 0 8px 28px rgba(232, 67, 147, 0.45);
+            transform: translateY(-2px);
+        }
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #2d1a2e;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 3000;
+            box-shadow: var(--shadow-lg);
+            transform: translateX(120%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            letter-spacing: -0.2px;
+        }
+        .toast.show {
+            transform: translateX(0);
+        }
+        .toast.success {
+            background: linear-gradient(135deg, #2d1a2e, #4a154b);
+            border: 2px solid rgba(253, 121, 168, 0.5);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: white;
+            border-top: 1px solid rgba(184, 77, 186, 0.15);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            position: relative;
+            z-index: 1;
+        }
+        .footer strong {
+            color: var(--purple-primary);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-visual {
+                order: -1;
+            }
+            .hero-card-stack {
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.98);
+                flex-direction: column;
+                padding: 1.5rem;
+                gap: 0.3rem;
+                box-shadow: var(--shadow-lg);
+                border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+                z-index: 999;
+            }
+            .nav-links.show {
+                display: flex;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .nav-auth {
+                gap: 6px;
+            }
+            .btn-login,
+            .btn-signup {
+                padding: 0.45rem 1rem;
+                font-size: 0.78rem;
+            }
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+            .stat-card {
+                padding: 1rem;
+            }
+            .stat-card .stat-value {
+                font-size: 1.4rem;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .cta-inner {
+                text-align: center;
+                justify-content: center;
                 padding: 2rem 1.5rem;
             }
-            .gallery-grid { grid-template-columns: 1fr 1fr; }
+            .cta-buttons {
+                justify-content: center;
+            }
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
         }
 
-        /* scroll-margin so fixed headers don’t hide title */
-        .second-layout, .third-layout, .fourth-layout {
-            scroll-margin-top: 20px;
+        @media (max-width: 480px) {
+            .navbar-inner {
+                gap: 0.8rem;
+            }
+            .logo-text {
+                font-size: 0.9rem;
+            }
+            .logo-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 0.85rem;
+                border-radius: 10px;
+            }
+            .btn-login,
+            .btn-signup {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.72rem;
+            }
+            .hero-section {
+                padding-top: 90px;
+            }
+            .hero-content h1 {
+                font-size: 1.5rem;
+            }
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+            .stats-bar {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.6rem;
+            }
+            .stat-card .stat-value {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
-<div class="card">
 
-    <!-- ========== MAIN LAYOUT (section 1) ========== -->
-    <div class="main-layout" id="mainLayout">
-        <div class="top-bar">
-            <div class="nav-links">
-                <button class="nav-item" id="navGalleryBtn">Gallery</button>
-                <button class="nav-item" id="navNewsBtn">News</button>
-                <button class="nav-item" id="navKalenderBtn">Kalender Akademik</button>
-            </div>
-            <div class="logo-placeholder"></div>
-        </div>
-        <div class="hero-title">
-            <div class="title-main">
-                <div class="hero-left">
-                    <span class="integrated">INTEGRATED WEBSITE</span>
-                    <span class="manggala">MANGGALA</span>
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="#" class="logo-section">
+                <div class="logo-icon">IL</div>
+                <div class="logo-text">
+                    INI LHO ITS!
+                    <span>2025 - Dies Natalis</span>
                 </div>
-                <div class="hero-right"></div>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#beranda" class="active" data-section="beranda">Beranda</a></li>
+                <li><a href="#acara" data-section="acara">Mata Acara</a></li>
+                <li><a href="#lomba" data-section="lomba">Lomba</a></li>
+                <li><a href="#daftar" data-section="daftar">Pendaftaran</a></li>
+            </ul>
+            <div class="nav-auth">
+                <button class="btn-login" onclick="showModal('login')">Log In</button>
+                <button class="btn-signup" onclick="showModal('signup')">Sign Up</button>
             </div>
-            <img src="Assets/logopng.png" alt="Manggala logo emblem" class="logoM">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </div>
-        <!-- CTA button scrolls to AKADEMIK (second layout) -->
-        <div class="cta-section">
-            <button class="take-a-look" id="akademikBtn" onclick="location.href='akademik.html'">Akademik</button>
-            <div class="look-hint">↗ explore the integrated portal</div>
-        </div>
-        <div class="bottom-accent">
-            <div class="left-accent">
-                <span>📅 Akademik</span>
-                <span>🗞️ Berita</span>
-                <span>🖼️ Galeri</span>
-            </div>
-            <div class="dept-text">Departemen Komunikasi Layanan dan Informasi</div>
-        </div>
-    </div>
+    </nav>
 
-    <!-- ========== SECOND LAYOUT (KALENDER AKADEMIK) ========== -->
-    <div class="second-layout" id="secondLayout">
-        <div class="top-bar">
-            <div class="nav-links">
-                <button class="nav-item" id="navGalleryBtn2">Gallery</button>
-                <button class="nav-item" id="navNewsBtn2">News</button>
-                <button class="nav-item" id="navKalenderBtn2">Kalender Akademik</button>
-            </div>
-            <div class="logo-placeholder"></div>
-        </div>
-        <div class="hero-title">
-            <div class="title-main">
-                <div class="hero-left"><span class="integrated">Manggala Board</span></div>
-                <div class="hero-right"></div>
-            </div>
-        </div>
-        <!-- academic dashboard -->
-        <div class="academic-dashboard">
-            <div class="calender-card">
-                <h3>📆 Kalender Akademik</h3>
-                <div class="mini-calendar">
-                    <span class="cal-day">M</span><span class="cal-day">T</span><span class="cal-day">W</span><span class="cal-day">T</span><span class="cal-day">F</span><span class="cal-day">S</span><span class="cal-day">S</span>
-                    <span class="cal-date">1</span><span class="cal-date">2</span><span class="cal-date">3</span><span class="cal-date">4</span><span class="cal-date">5</span><span class="cal-date">6</span><span class="cal-date">7</span>
-                    <span class="cal-date">8</span><span class="cal-date">9</span><span class="cal-date">10</span><span class="cal-date">11</span><span class="cal-date">12</span><span class="cal-date">13</span><span class="cal-date">14</span>
-                    <span class="cal-date">15</span><span class="cal-date">16</span><span class="cal-date">17</span><span class="cal-date">18</span><span class="cal-date">19</span><span class="cal-date">20</span><span class="cal-date">21</span>
-                    <span class="cal-date">22</span><span class="cal-date">23</span><span class="cal-date">24</span><span class="cal-date">25</span><span class="cal-date">26</span><span class="cal-date">27</span><span class="cal-date">28</span>
-                    <span class="cal-date">29</span><span class="cal-date">30</span><span class="cal-date">31</span><span class="cal-date"></span><span class="cal-date"></span><span class="cal-date"></span><span class="cal-date"></span>
+    <!-- ==================== HERO / DASHBOARD ==================== -->
+    <section class="hero-section" id="beranda">
+        <div class="hero-container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="dot"></span> Dies Natalis 2025 - #IniLhoITS
+                    </div>
+                    <h1>
+                        Selamat Datang di<br>
+                        <span class="gradient-text">INI LHO ITS! 2025</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Rayakan Dies Natalis dengan semangat! Bergabunglah dalam berbagai mata acara seru dan kompetisi menarik. Daftar sekarang dan jadilah bagian dari kemeriahan!
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#acara" class="btn-primary">
+                            <i class="fa-solid fa-ticket"></i> Daftar Mata Acara
+                        </a>
+                        <a href="#lomba" class="btn-outline">
+                            <i class="fa-solid fa-trophy"></i> Daftar Lomba
+                        </a>
+                    </div>
                 </div>
-                <div style="margin-top:1rem; font-weight:500; color:#b13e3e;">📌 UTS: 12–20 Apr</div>
+                <div class="hero-visual">
+                    <div class="hero-card-stack">
+                        <div class="hero-floating-card card-top-right">
+                            <div class="icon-circle"><i class="fa-solid fa-calendar-check"></i></div>
+                            <div class="stat-num">15+</div>
+                            <div class="stat-lbl">Mata Acara</div>
+                        </div>
+                        <div class="hero-floating-card card-main">
+                            <div class="card-main-inner">
+                                <div class="big-number">2025</div>
+                                <div class="big-label">DIES NATALIS</div>
+                                <p style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">INI LHO ITS!</p>
+                            </div>
+                        </div>
+                        <div class="hero-floating-card card-bottom-left">
+                            <div class="icon-circle"><i class="fa-solid fa-medal"></i></div>
+                            <div class="stat-num">8</div>
+                            <div class="stat-lbl">Kategori Lomba</div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <!-- Dashboard Stats -->
+        <div class="stats-bar">
+            <div class="stat-card">
+                <span class="stat-icon"><i class="fa-solid fa-calendar-star" style="color:#b84dba;"></i></span>
+                <span class="stat-value">15+</span>
+                <span class="stat-label">Mata Acara Tersedia</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon"><i class="fa-solid fa-medal" style="color:#e84393;"></i></span>
+                <span class="stat-value">8</span>
+                <span class="stat-label">Kategori Lomba</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon"><i class="fa-solid fa-users" style="color:#8e2a8f;"></i></span>
+                <span class="stat-value">2,500+</span>
+                <span class="stat-label">Peserta Terdaftar</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon"><i class="fa-solid fa-gift" style="color:#e84393;"></i></span>
+                <span class="stat-value">Rp50M+</span>
+                <span class="stat-label">Total Hadiah</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MATA ACARA ==================== -->
+    <section class="section-container" id="acara">
+        <div class="section-header">
+            <span class="section-tag purple">Mata Acara</span>
+            <h2>Rangkaian Acara Seru</h2>
+            <p>Beragam kegiatan menarik menanti partisipasimu. Pilih dan daftar sekarang!</p>
+        </div>
+        <div class="cards-grid">
+            <!-- Card 1 -->
             <div class="event-card">
-                <h3>🔔 Event notification</h3>
-                <div class="event-item"><span class="event-badge">TODAY</span><span class="event-desc">Seminar nasional</span></div>
-                <div class="event-item"><span class="event-badge">TOMORROW</span><span class="event-desc">Bimbingan karir</span></div>
-                <div class="event-item"><span class="event-badge">+3</span><span class="event-desc">Workshop desain</span></div>
-                <div class="event-item"><span class="event-badge">📢</span><span class="event-desc">Pengumuman beasiswa</span></div>
+                <div class="event-card-image">
+                    <div class="img-placeholder grad-purple"><i class="fa-solid fa-music"></i></div>
+                    <span class="event-card-badge">POPULER</span>
+                </div>
+                <div class="event-card-body">
+                    <h3>Malam Puncak Dies Natalis</h3>
+                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 20 Desember 2025 - 19:00 WIB</div>
+                    <p class="event-desc">Perayaan malam puncak dengan penampilan bintang tamu spesial, pesta kembang api, dan pengumuman pemenang lomba.</p>
+                    <button class="btn-card" onclick="openRegistration('Malam Puncak Dies Natalis', 'acara')">
+                        <i class="fa-solid fa-ticket"></i> Daftar Sekarang
+                    </button>
+                </div>
             </div>
-            <div class="student-stats">
-                <h3>👥 Mahasiswa per Jurusan</h3>
-                <div class="jurusan-row"><span class="jurusan-name">Teknik Informatika</span><span class="jurusan-count">187</span></div>
-                <div class="jurusan-row"><span class="jurusan-name">Sistem Informasi</span><span class="jurusan-count">142</span></div>
-                <div class="jurusan-row"><span class="jurusan-name">DKV</span><span class="jurusan-count">98</span></div>
-                <div class="jurusan-row"><span class="jurusan-name">Manajemen</span><span class="jurusan-count">114</span></div>
-                <div class="total-badge">total mahasiswa: 541</div>
+            <!-- Card 2 -->
+            <div class="event-card">
+                <div class="event-card-image">
+                    <div class="img-placeholder grad-pink"><i class="fa-solid fa-people-group"></i></div>
+                    <span class="event-card-badge">BARU</span>
+                </div>
+                <div class="event-card-body">
+                    <h3>Seminar Inspiratif</h3>
+                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 15-16 Desember 2025</div>
+                    <p class="event-desc">Hadiri seminar dengan pembicara inspiratif dari berbagai bidang. Dapatkan wawasan baru dan networking luas.</p>
+                    <button class="btn-card" onclick="openRegistration('Seminar Inspiratif', 'acara')">
+                        <i class="fa-solid fa-ticket"></i> Daftar Sekarang
+                    </button>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="event-card">
+                <div class="event-card-image">
+                    <div class="img-placeholder grad-mixed"><i class="fa-solid fa-utensils"></i></div>
+                </div>
+                <div class="event-card-body">
+                    <h3>Festival Kuliner Nusantara</h3>
+                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 17-19 Desember 2025</div>
+                    <p class="event-desc">Jelajahi ragam kuliner dari seluruh Indonesia. Nikmati pameran, workshop masak, dan kompetisi makan.</p>
+                    <button class="btn-card" onclick="openRegistration('Festival Kuliner Nusantara', 'acara')">
+                        <i class="fa-solid fa-ticket"></i> Daftar Sekarang
+                    </button>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="event-card">
+                <div class="event-card-image">
+                    <div class="img-placeholder grad-soft"><i class="fa-solid fa-futbol"></i></div>
+                    <span class="event-card-badge">SPORT</span>
+                </div>
+                <div class="event-card-body">
+                    <h3>Turnamen Olahraga</h3>
+                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 10-18 Desember 2025</div>
+                    <p class="event-desc">Kompetisi futsal, basket, badminton, dan e-sports. Tunjukkan bakatmu dan raih kemenangan!</p>
+                    <button class="btn-card" onclick="openRegistration('Turnamen Olahraga', 'acara')">
+                        <i class="fa-solid fa-ticket"></i> Daftar Sekarang
+                    </button>
+                </div>
+            </div>
+            <!-- Card 5 -->
+            <div class="event-card">
+                <div class="event-card-image">
+                    <div class="img-placeholder grad-purple"><i class="fa-solid fa-palette"></i></div>
+                </div>
+                <div class="event-card-body">
+                    <h3>Pameran Seni & Karya</h3>
+                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 12-20 Desember 2025</div>
+                    <p class="event-desc">Eksplorasi kreativitas melalui pameran seni rupa, instalasi, fotografi, dan karya inovatif mahasiswa.</p>
+                    <button class="btn-card" onclick="openRegistration('Pameran Seni & Karya', 'acara')">
+                        <i class="fa-solid fa-ticket"></i> Daftar Sekarang
+                    </button>
+                </div>
+            </div>
+            <!-- Card 6 -->
+            <div class="event-card">
+                <div class="event-card-image">
+                    <div class="img-placeholder grad-pink"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                    <span class="event-card-badge">SOSIAL</span>
+                </div>
+                <div class="event-card-body">
+                    <h3>Bakti Sosial</h3>
+                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 14 Desember 2025</div>
+                    <p class="event-desc">Kegiatan bakti sosial untuk masyarakat sekitar. Berbagi kebahagiaan di momen Dies Natalis.</p>
+                    <button class="btn-card" onclick="openRegistration('Bakti Sosial', 'acara')">
+                        <i class="fa-solid fa-ticket"></i> Daftar Sekarang
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="bottom-accent">
-            <div class="left-accent"><span>📅 Akademik</span><span>🗞️ Berita</span><span>🖼️ Galeri</span></div>
-            <div class="dept-text">Departemen Komunikasi Layanan dan Informasi</div>
+    </section>
+
+    <!-- ==================== LOMBA ==================== -->
+    <section class="section-container" id="lomba">
+        <div class="section-header">
+            <span class="section-tag pink">Lomba</span>
+            <h2>Kompetisi Bergengsi</h2>
+            <p>Ikuti berbagai lomba dengan hadiah menarik dan buktikan kemampuanmu!</p>
+        </div>
+        <div class="cards-grid">
+            <!-- Lomba 1 -->
+            <div class="event-card">
+                <div class="event-card-image">
+                    <div class="img-placeholder grad-mixed"><i class="fa-solid fa-code"></i></div>
+                    <span class="event-card-badge">IT</span>
+                </div>
+                <div class="event-card-body">
+                    <h3>Hackathon 2025</h3>
+                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 13-14 Desember 2025</div>
+                    <p class="event-desc">Kompetisi coding 24 jam untuk menciptakan solusi digital inovatif. Total hadiah Rp15 juta!</p>
+                    <button class="btn-card" onclick="openRegistration('Hackathon 2025', 'lomba')">
+                        <i class="fa-solid fa-trophy"></i> Daftar Lomba
+                    </button>
+                </div>
+            </div>
+            <!-- Lomba 2 -->
+            <div class="event-card">
+                <div class="event-card-image">
+                    <div class="img-placeholder grad-purple"><i class="fa-solid fa-microphone"></i></div>
+                </div>
+                <div class="event-card-body">
+                    <h3>Debat Bahasa Inggris</h3>
+                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 16-17 Desember 2025</div>
+                    <p class="event-desc">Adu argumen dan kemampuan public speaking dalam bahasa Inggris. Terbuka untuk semua jurusan!</p>
+                    <button class="btn-card" onclick="openRegistration('Debat Bahasa Inggris', 'lomba')">
+                        <i class="fa-solid fa-trophy"></i> Daftar Lomba
+                    </button>
+                </div>
+            </div>
+            <!-- Lomba 3 -->
+            <div class="event-card">
+                <div class="event-card-image">
+                    <div class="img-placeholder grad-pink"><i class="fa-solid fa-camera-retro"></i></div>
+                    <span class="event-card-badge">FOTO</span>
+                </div>
+                <div class="event-card-body">
+                    <h3>Lomba Fotografi</h3>
+                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 10-19 Desember 2025</div>
+                    <p class="event-desc">Abadikan momen terbaik dengan tema "Semangat Dies Natalis". Hadiah kamera dan uang tunai!</p>
+                    <button class="btn-card" onclick="openRegistration('Lomba Fotografi', 'lomba')">
+                        <i class="fa-solid fa-trophy"></i> Daftar Lomba
+                    </button>
+                </div>
+            </div>
+            <!-- Lomba 4 -->
+            <div class="event-card">
+                <div class="event-card-image">
+                    <div class="img-placeholder grad-soft"><i class="fa-solid fa-masks-theater"></i></div>
+                </div>
+                <div class="event-card-body">
+                    <h3>Pentas Seni & Drama</h3>
+                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 18 Desember 2025</div>
+                    <p class="event-desc">Kompetisi drama dan pertunjukan seni antar fakultas. Kreativitas tanpa batas di atas panggung!</p>
+                    <button class="btn-card" onclick="openRegistration('Pentas Seni & Drama', 'lomba')">
+                        <i class="fa-solid fa-trophy"></i> Daftar Lomba
+                    </button>
+                </div>
+            </div>
+            <!-- Lomba 5 -->
+            <div class="event-card">
+                <div class="event-card-image">
+                    <div class="img-placeholder grad-mixed"><i class="fa-solid fa-robot"></i></div>
+                    <span class="event-card-badge">ROBOTIK</span>
+                </div>
+                <div class="event-card-body">
+                    <h3>Kompetisi Robotika</h3>
+                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 14-16 Desember 2025</div>
+                    <p class="event-desc">Rancang dan bangun robot terbaikmu! Kategori line follower, sumo robot, dan inovasi bebas.</p>
+                    <button class="btn-card" onclick="openRegistration('Kompetisi Robotika', 'lomba')">
+                        <i class="fa-solid fa-trophy"></i> Daftar Lomba
+                    </button>
+                </div>
+            </div>
+            <!-- Lomba 6 -->
+            <div class="event-card">
+                <div class="event-card-image">
+                    <div class="img-placeholder grad-purple"><i class="fa-solid fa-mobile-screen"></i></div>
+                </div>
+                <div class="event-card-body">
+                    <h3>UI/UX Design Challenge</h3>
+                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 11-17 Desember 2025</div>
+                    <p class="event-desc">Kompetisi desain antarmuka aplikasi mobile. Kreasikan ide terbaik dan menangkan hadiah!</p>
+                    <button class="btn-card" onclick="openRegistration('UI/UX Design Challenge', 'lomba')">
+                        <i class="fa-solid fa-trophy"></i> Daftar Lomba
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA BANNER ==================== -->
+    <section class="cta-banner" id="daftar">
+        <div class="cta-inner">
+            <div class="cta-text">
+                <h3>Siap Berpartisipasi?</h3>
+                <p>Jangan lewatkan kesempatan! Daftar sekarang dan raih pengalaman tak terlupakan.</p>
+            </div>
+            <div class="cta-buttons">
+                <button class="btn-primary" onclick="openRegistration('Mata Acara Pilihan', 'acara')">
+                    <i class="fa-solid fa-ticket"></i> Daftar Mata Acara
+                </button>
+                <button class="btn-outline" onclick="openRegistration('Lomba Pilihan', 'lomba')">
+                    <i class="fa-solid fa-trophy"></i> Daftar Lomba
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MODAL REGISTRATION ==================== -->
+    <div class="modal-overlay" id="registrationModal">
+        <div class="modal-dialog">
+            <button class="modal-close" onclick="closeModal('registrationModal')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 id="modalTitle">Form Pendaftaran</h3>
+            <form id="registrationForm" onsubmit="handleSubmit(event)">
+                <input type="hidden" id="regType" value="acara">
+                <input type="hidden" id="regItemName" value="">
+                <div class="form-group">
+                    <label for="regName">Nama Lengkap</label>
+                    <input type="text" id="regName" placeholder="Masukkan nama lengkap" required>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail" placeholder="contoh@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPhone">Nomor WhatsApp</label>
+                    <input type="tel" id="regPhone" placeholder="0812-3456-7890" required>
+                </div>
+                <div class="form-group">
+                    <label for="regInstitution">Asal Institusi</label>
+                    <input type="text" id="regInstitution" placeholder="Nama sekolah / universitas / umum" required>
+                </div>
+                <button type="submit" class="btn-submit">
+                    <i class="fa-solid fa-paper-plane"></i> Kirim Pendaftaran
+                </button>
+            </form>
         </div>
     </div>
 
-    <!-- ========== THIRD LAYOUT (NEWS / BERITA) ========== -->
-    <div class="third-layout" id="newsLayout">
-        <div class="top-bar">
-            <div class="nav-links">
-                <button class="nav-item" id="navGalleryBtn3">Gallery</button>
-                <button class="nav-item" id="navNewsBtn3">News</button>
-                <button class="nav-item" id="navKalenderBtn3">Kalender Akademik</button>
-            </div>
-            <div class="logo-placeholder"></div>
-        </div>
-        <div class="hero-title">
-            <div class="title-main">
-                <div class="hero-left"><span class="integrated">BERITA & INFORMASI</span><span class="manggala">NEWS</span></div>
-                <div class="hero-right"></div>
-            </div>
-        </div>
-        <!-- news grid -->
-        <div class="news-grid">
-            <div class="news-card"><div class="news-date">12 April 2025</div><div class="news-title">Seminar AI</div><div class="news-excerpt">Diskusi tren kecerdasan buatan terkini.</div><span class="news-tag">teknologi</span></div>
-            <div class="news-card"><div class="news-date">10 April 2025</div><div class="news-title">Beasiswa LPDP</div><div class="news-excerpt">Pendaftaran dibuka hingga 30 Mei.</div><span class="news-tag">beasiswa</span></div>
-            <div class="news-card"><div class="news-date">8 April 2025</div><div class="news-title">Wisuda Periode II</div><div class="news-excerpt">Jadwal dan tata cara pendaftaran.</div><span class="news-tag">akademik</span></div>
-            <div class="news-card"><div class="news-date">5 April 2025</div><div class="news-title">Kunjungan Industri</div><div class="news-excerpt">Mahasiswa TI ke PT. Tech Ind.</div><span class="news-tag">event</span></div>
-        </div>
-        <div class="bottom-accent">
-            <div class="left-accent"><span>📅 Akademik</span><span>🗞️ Berita</span><span>🖼️ Galeri</span></div>
-            <div class="dept-text">Departemen Komunikasi Layanan dan Informasi</div>
+    <!-- ==================== MODAL LOGIN ==================== -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-dialog">
+            <button class="modal-close" onclick="closeModal('loginModal')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3>Log In</h3>
+            <form onsubmit="handleAuthSubmit(event, 'login')">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="Masukkan email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Masukkan password" required>
+                </div>
+                <button type="submit" class="btn-submit">Masuk</button>
+            </form>
+            <p style="text-align:center;margin-top:1rem;font-size:0.8rem;color:var(--text-light);">
+                Belum punya akun?
+                <a href="#" style="color:var(--pink-primary);font-weight:600;text-decoration:none;" onclick="closeModal('loginModal');setTimeout(function(){showModal('signup');},300);">Sign Up</a>
+            </p>
         </div>
     </div>
 
-    <!-- ========== FOURTH LAYOUT (GALLERY AKADEMIK) ========== -->
-    <div class="fourth-layout" id="galleryLayout">
-        <div class="top-bar">
-            <div class="nav-links">
-                <button class="nav-item" id="navGalleryBtn4">Gallery</button>
-                <button class="nav-item" id="navNewsBtn4">News</button>
-                <button class="nav-item" id="navKalenderBtn4">Kalender Akademik</button>
-            </div>
-            <div class="logo-placeholder"></div>
-        </div>
-        <div class="hero-title">
-            <div class="title-main">
-                <div class="hero-left"><span class="integrated">MOMENTS AKADEMIK</span><span class="manggala">GALLERY</span></div>
-                <div class="hero-right"></div>
-            </div>
-        </div>
-        <!-- gallery grid (academic vibe) -->
-        <div class="gallery-grid">
-            <div class="gallery-item"><span>📸</span><p>wisuda</p></div>
-            <div class="gallery-item"><span>🏆</span><p>kompetisi</p></div>
-            <div class="gallery-item"><span>🔬</span><p>lab session</p></div>
-            <div class="gallery-item"><span>📚</span><p>diskusi</p></div>
-            <div class="gallery-item"><span>🎤</span><p>seminar</p></div>
-            <div class="gallery-item"><span>🏛️</span><p>kampus</p></div>
-        </div>
-        <div class="bottom-accent">
-            <div class="left-accent"><span>📅 Akademik</span><span>🗞️ Berita</span><span>🖼️ Galeri</span></div>
-            <div class="dept-text">Departemen Komunikasi Layanan dan Informasi</div>
+    <!-- ==================== MODAL SIGNUP ==================== -->
+    <div class="modal-overlay" id="signupModal">
+        <div class="modal-dialog">
+            <button class="modal-close" onclick="closeModal('signupModal')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3>Sign Up</h3>
+            <form onsubmit="handleAuthSubmit(event, 'signup')">
+                <div class="form-group">
+                    <label for="signupName">Nama Lengkap</label>
+                    <input type="text" id="signupName" placeholder="Masukkan nama lengkap" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" placeholder="Masukkan email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Buat password (min. 6 karakter)" minlength="6" required>
+                </div>
+                <button type="submit" class="btn-submit">Daftar</button>
+            </form>
+            <p style="text-align:center;margin-top:1rem;font-size:0.8rem;color:var(--text-light);">
+                Sudah punya akun?
+                <a href="#" style="color:var(--purple-primary);font-weight:600;text-decoration:none;" onclick="closeModal('signupModal');setTimeout(function(){showModal('login');},300);">Log In</a>
+            </p>
         </div>
     </div>
 
-    <!-- bottom stripe (optional) -->
-    <div class="bottom-stripe"></div>
-</div>
+    <!-- ==================== TOAST ==================== -->
+    <div class="toast" id="toast"></div>
 
-<script>
-(function() {
-    // helper: trigger fade animation
-    function triggerFadeIn(element) {
-        element.style.animation = 'none';
-        element.offsetHeight; // reflow
-        element.style.animation = 'fadeIn 0.6s ease forwards';
-    }
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <p>&copy; 2025 <strong>INI LHO ITS!</strong> - Dies Natalis. All rights reserved.</p>
+    </footer>
 
-    // get sections
-    const second = document.getElementById('secondLayout');
-    const third = document.getElementById('newsLayout');
-    const fourth = document.getElementById('galleryLayout');
+    <!-- ==================== SCRIPTS ==================== -->
+    <script>
+        (function() {
+            var navbar = document.getElementById('navbar');
+            var ticking = false;
+            var lastScrollY = 0;
 
-    // get all buttons (main + duplicated)
-    // akademik main button
-    const akademikBtn = document.getElementById('akademikBtn');
-    if (akademikBtn && second) {
-        akademikBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            second.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            triggerFadeIn(second);
-        });
-    }
-
-    // navigation buttons: kalender akademik (multiple)
-    const kalenderBtns = document.querySelectorAll('#navKalenderBtn, #navKalenderBtn2, #navKalenderBtn3, #navKalenderBtn4');
-    kalenderBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (second) {
-                second.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                triggerFadeIn(second);
+            function onScroll() {
+                var scrollY = window.scrollY;
+                if (scrollY > 30) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                updateActiveNavLink();
+                ticking = false;
             }
-        });
-    });
 
-    // news buttons
-    const newsBtns = document.querySelectorAll('#navNewsBtn, #navNewsBtn2, #navNewsBtn3, #navNewsBtn4');
-    newsBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (third) {
-                third.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                triggerFadeIn(third);
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(onScroll);
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            // Mobile menu toggle
+            function toggleMobileMenu() {
+                var navLinks = document.getElementById('navLinks');
+                navLinks.classList.toggle('show');
             }
-        });
-    });
 
-    // gallery buttons
-    const galleryBtns = document.querySelectorAll('#navGalleryBtn, #navGalleryBtn2, #navGalleryBtn3, #navGalleryBtn4');
-    galleryBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (fourth) {
-                fourth.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                triggerFadeIn(fourth);
+            // Close mobile menu when a link is clicked
+            var navLinkItems = document.querySelectorAll('#navLinks a');
+            for (var i = 0; i < navLinkItems.length; i++) {
+                navLinkItems[i].addEventListener('click', function() {
+                    document.getElementById('navLinks').classList.remove('show');
+                });
             }
-        });
-    });
 
-    // Also the bottom accent items are not buttons, but we can optionally make them interactive if needed.
-    // For consistency, we also ensure that each section already fades on load (done by CSS).
-    // But the user might want to re-fade when scrolling via these buttons: triggerFadeIn handles that.
-    // Additionally, fade them on page load if any glitch: they are already animated.
+            // Update active nav link
+            function updateActiveNavLink() {
+                var sections = ['beranda', 'acara', 'lomba', 'daftar'];
+                var navLinksAll = document.querySelectorAll('#navLinks a');
+                var currentSection = 'beranda';
 
-    // If there is a logo image missing, it's just placeholder, no problem.
-})();
-</script>
+                for (var i = 0; i < sections.length; i++) {
+                    var section = document.getElementById(sections[i]);
+                    if (section) {
+                        var rect = section.getBoundingClientRect();
+                        if (rect.top <= 150 && rect.bottom >= 100) {
+                            currentSection = sections[i];
+                        }
+                    }
+                }
 
-<!-- note: dummy logo path, it's fine -->
+                for (var j = 0; j < navLinksAll.length; j++) {
+                    navLinksAll[j].classList.remove('active');
+                    if (navLinksAll[j].getAttribute('data-section') === currentSection) {
+                        navLinksAll[j].classList.add('active');
+                    }
+                }
+            }
+
+            // Smooth scroll for nav links
+            for (var k = 0; k < navLinkItems.length; k++) {
+                navLinkItems[k].addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var targetId = this.getAttribute('data-section');
+                    var targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        var offset = navbar.offsetHeight + 20;
+                        var targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - offset;
+                        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                    }
+                });
+            }
+
+            // Modal functions
+            window.showModal = function(type) {
+                var modalId;
+                if (type === 'login') modalId = 'loginModal';
+                else if (type === 'signup') modalId = 'signupModal';
+                else modalId = type;
+
+                var modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            };
+
+            window.closeModal = function(modalId) {
+                var modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            };
+
+            // Close modal on overlay click
+            var overlays = document.querySelectorAll('.modal-overlay');
+            for (var m = 0; m < overlays.length; m++) {
+                overlays[m].addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    var activeModals = document.querySelectorAll('.modal-overlay.active');
+                    for (var n = 0; n < activeModals.length; n++) {
+                        activeModals[n].classList.remove('active');
+                    }
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Open registration modal
+            window.openRegistration = function(itemName, type) {
+                var modal = document.getElementById('registrationModal');
+                var title = document.getElementById('modalTitle');
+                var regType = document.getElementById('regType');
+                var regItemName = document.getElementById('regItemName');
+
+                if (modal && title && regType && regItemName) {
+                    regType.value = type;
+                    regItemName.value = itemName;
+                    var label = type === 'lomba' ? 'Lomba' : 'Mata Acara';
+                    title.textContent = 'Daftar ' + label + ': ' + itemName;
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    document.getElementById('registrationForm').reset();
+                }
+            };
+
+            // Handle registration form submission
+            window.handleSubmit = function(event) {
+                event.preventDefault();
+                var itemName = document.getElementById('regItemName').value;
+                var type = document.getElementById('regType').value;
+                var label = type === 'lomba' ? 'lomba' : 'mata acara';
+
+                closeModal('registrationModal');
+                showToast('Pendaftaran "' + itemName + '" berhasil! Kami akan menghubungi Anda melalui WhatsApp.', 'success');
+                document.getElementById('registrationForm').reset();
+            };
+
+            // Handle auth form submission
+            window.handleAuthSubmit = function(event, type) {
+                event.preventDefault();
+                var label = type === 'login' ? 'Log In' : 'Sign Up';
+                var modalId = type === 'login' ? 'loginModal' : 'signupModal';
+
+                closeModal(modalId);
+                showToast(label + ' berhasil! Selamat datang di INI LHO ITS! 2025.', 'success');
+            };
+
+            // Toast notification
+            function showToast(message, type) {
+                var toast = document.getElementById('toast');
+                toast.textContent = message;
+                toast.className = 'toast ' + (type || '') + ' show';
+                clearTimeout(toast._timeout);
+                toast._timeout = setTimeout(function() {
+                    toast.classList.remove('show');
+                }, 3500);
+            }
+
+            // Expose toggleMobileMenu globally
+            window.toggleMobileMenu = toggleMobileMenu;
+
+            // Initial active nav link
+            updateActiveNavLink();
+        })();
+    </script>
 </body>
 </html>

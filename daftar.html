@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIES NATALIS - Register</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="index.html" class="logo-section">
+                <div class="logo-icon">DN</div>
+                <div class="logo-text">
+                    DIES NATALIS XI PKN STAN
+                    <span>2026 - Politeknik Keuangan Negara STAN</span>
+                </div>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="about.html" data-page="about">About Us</a></li>
+                <li><a href="acara.html" data-page="acara">Events</a></li>
+                <li><a href="lomba.html" data-page="lomba">Competitions</a></li>
+            </ul>
+            <div class="nav-auth">
+                <button class="btn-login" onclick="showModal('login')">Log In</button>
+                <button class="btn-signup" onclick="showModal('signup')">Sign Up</button>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+
+    <!-- ==================== REGISTRATION PAGE ==================== -->
+    <section class="registration-page" id="daftar">
+        <div class="section-header">
+            <span class="section-tag purple">Pendaftaran</span>
+            <h2 id="pageTitle">Form Pendaftaran</h2>
+            <p id="pageSubtitle">Isi data diri Anda untuk mendaftar pada kegiatan yang dipilih.</p>
+        </div>
+
+        <div class="registration-form-wrapper">
+            <h3 id="formHeading">
+                <i class="fa-solid fa-clipboard-list"></i> Form Pendaftaran
+            </h3>
+            <div id="selectedItemInfo" style="display:none; background:#f0f4ff; border-radius:12px; padding:0.8rem 1rem; margin-bottom:1.2rem; text-align:center; font-size:0.85rem; color:#3b82f6; font-weight:600;">
+                <i class="fa-solid fa-circle-info"></i> <span id="selectedItemText"></span>
+            </div>
+            <form id="registrationForm" onsubmit="handleRegistrationSubmit(event)">
+                <input type="hidden" id="regType" value="">
+                <input type="hidden" id="regItemName" value="">
+                <div class="form-group">
+                    <label for="regName">Nama Lengkap</label>
+                    <input type="text" id="regName" placeholder="Masukkan nama lengkap" required>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail" placeholder="contoh@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPhone">Nomor WhatsApp</label>
+                    <input type="tel" id="regPhone" placeholder="0812-3456-7890" required>
+                </div>
+                <div class="form-group">
+                    <label for="regInstitution">Asal Institusi</label>
+                    <input type="text" id="regInstitution" placeholder="Nama sekolah / universitas / umum" required>
+                </div>
+                <button type="submit" class="btn-submit">
+                    <i class="fa-solid fa-paper-plane"></i> Kirim Pendaftaran
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>DIES NATALIS XI PKN STAN</h4>
+                <p>Perayaan Dies Natalis PKN STAN yang penuh warna, kreativitas, dan kebersamaan. Mari bergabung dalam setiap rangkaian acara dan kompetisi seru!</p>
+            </div>
+            <div class="footer-col">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Kontak Kami</h4>
+                <p><i class="fa-solid fa-envelope"></i>diesnatalis@pknstan.ac.id</p>
+                <p><i class="fa-brands fa-whatsapp"></i>+6281289952858 (Bihan)</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 <strong>DIES NATALIS</strong>. All rights reserved. Privacy Policy</p>
+        </div>
+    </footer>
+
+    <!-- ==================== MODAL LOGIN ==================== -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-dialog">
+            <button class="modal-close" onclick="closeModal('loginModal')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3>Log In</h3>
+            <form onsubmit="handleAuthSubmit(event, 'login')">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="Masukkan email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Masukkan password" required>
+                </div>
+                <button type="submit" class="btn-submit">Masuk</button>
+            </form>
+            <p style="text-align:center;margin-top:1rem;font-size:0.8rem;color:var(--text-light);">
+                Belum punya akun?
+                <a href="#" style="color:var(--pink-primary);font-weight:600;text-decoration:none;" onclick="closeModal('loginModal');setTimeout(function(){showModal('signup');},300);">Sign Up</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL SIGNUP ==================== -->
+    <div class="modal-overlay" id="signupModal">
+        <div class="modal-dialog">
+            <button class="modal-close" onclick="closeModal('signupModal')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3>Sign Up</h3>
+            <form onsubmit="handleAuthSubmit(event, 'signup')">
+                <div class="form-group">
+                    <label for="signupName">Nama Lengkap</label>
+                    <input type="text" id="signupName" placeholder="Masukkan nama lengkap" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" placeholder="Masukkan email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Buat password (min. 6 karakter)" minlength="6" required>
+                </div>
+                <button type="submit" class="btn-submit">Daftar</button>
+            </form>
+            <p style="text-align:center;margin-top:1rem;font-size:0.8rem;color:var(--text-light);">
+                Sudah punya akun?
+                <a href="#" style="color:var(--purple-primary);font-weight:600;text-decoration:none;" onclick="closeModal('signupModal');setTimeout(function(){showModal('login');},300);">Log In</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST ==================== -->
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

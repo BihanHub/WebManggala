@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIES NATALIS - Competitions</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="index.html" class="logo-section">
+                <div class="logo-icon">DN</div>
+                <div class="logo-text">
+                    DIES NATALIS XI PKN STAN
+                    <span>2026 - Politeknik Keuangan Negara STAN</span>
+                </div>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="about.html" data-page="about">About Us</a></li>
+                <li><a href="acara.html" data-page="acara">Events</a></li>
+                <li><a href="lomba.html" data-page="lomba">Competitions</a></li>
+            </ul>
+            <div class="nav-auth">
+                <button class="btn-login" onclick="showModal('login')">Log In</button>
+                <button class="btn-signup" onclick="showModal('signup')">Sign Up</button>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+
+    <!-- ==================== LOMBA ==================== -->
+    <section class="section-container" id="lomba">
+        <div class="section-header">
+            <span class="section-tag pink">Lomba</span>
+            <h2>Kompetisi Bergengsi</h2>
+        </div>
+        <div class="cards-grid">
+            <!-- Lomba 1 -->
+            <div class="event-card">
+                <div class="event-card-image">
+                    <div class="img-placeholder grad-mixed"></div>
+                </div>
+                <div class="event-card-body">
+                    <h3>Finding Frenzy</h3>
+                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 27 Juni - 4 Juli 2026</div>
+                    <p class="event-desc">Finding Frenzy adalah sebuah rangkaian perlombaan yang terdiri atas 3 tahap, yaitu perburuan harta karun (decode & discover), pertarungan antar generasi (battle of generations), dan berpacu dalam melodi (guess the beat)</p>
+                    <a href="daftar.html?type=lomba&nama=Finding%20Frenzy" class="btn-card">
+                        <i class="fa-solid fa-trophy"></i> Daftar Lomba
+                    </a>
+                </div>
+            </div>
+            <!-- Lomba 2 -->
+            <div class="event-card">
+                <div class="event-card-image">
+                    <div class="img-placeholder grad-purple"></div>
+                </div>
+                <div class="event-card-body">
+                    <h3>IKANAS Fun Day</h3>
+                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 4 Juli 2026</div>
+                    <p class="event-desc">IKANAS Fun Day adalah sebuah acara dengan berbagai rangkaian kegiatan yang diadakan khusus untuk Ikatan Keluarga Alumni STAN dan sivitas akademika Politeknik Keuangan Negara STAN (PKN STAN) berbentuk sesi keakraban dan olahraga bersama.</p>
+                    <a href="daftar.html?type=lomba&nama=IKANAS%20Fun%20Day" class="btn-card">
+                        <i class="fa-solid fa-trophy"></i> Daftar Lomba
+                    </a>
+                </div>
+            </div>
+            <!-- Lomba 3 -->
+            <div class="event-card">
+                <div class="event-card-image">
+                    <div class="img-placeholder grad-pink"></div>
+                </div>
+                <div class="event-card-body">
+                    <h3>MLBB Competition</h3>
+                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 26 - 28 Juni 2026</div>
+                    <p class="event-desc">Mobile Legends: Bang Bang Competition, atau yang lebih dikenal dengan MLBB merupakan game Multiplayer Online Battle Arena (MOBA) 5v5 yang seru dan kompetitif di platform Android dan iOS.</p>
+                    <a href="daftar.html?type=lomba&nama=MLBB%20Competition" class="btn-card">
+                        <i class="fa-solid fa-trophy"></i> Daftar Lomba
+                    </a>
+                </div>
+            </div>
+            <!-- Lomba 4 -->
+            <div class="event-card">
+                <div class="event-card-image">
+                    <div class="img-placeholder grad-soft"></div>
+                </div>
+                <div class="event-card-body">
+                    <h3>Manifest on Board (MOB)</h3>
+                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 14 Juni - 19 Juni 2026</div>
+                    <p class="event-desc">Manifest on Board (MOB) merupakan perlombaan seni lukis pada media kanvas yang bertujuan menyalurkan kreativitas mahasiswa/i dalam mengekspresikan ide dan pesan melalui karya visual yang terbuka bagi mahasiswa/i PKN STAN.</p>
+                    <a href="daftar.html?type=lomba&nama=Manifest%20on%20Board" class="btn-card">
+                        <i class="fa-solid fa-trophy"></i> Daftar Lomba
+                    </a>
+                </div>
+            </div>
+            <!-- Lomba 5 -->
+            <div class="event-card">
+                <div class="event-card-image">
+                    <div class="img-placeholder grad-mixed"></div>
+                </div>
+                <div class="event-card-body">
+                    <h3>STAN Band</h3>
+                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 5 Juli 2026</div>
+                    <p class="event-desc">STAN Band adalah salah satu kegiatan yang diadakan sebagai wadah ekspresi minat dan bakat para peserta dalam hal bermusik yang akan diikuti Mahasiswa PKN STAN dan Mahasiswa Umum.</p>
+                    <a href="daftar.html?type=lomba&nama=STAN%20Band" class="btn-card">
+                        <i class="fa-solid fa-trophy"></i> Daftar Lomba
+                    </a>
+                </div>
+            </div>
+            <!-- Lomba 6 -->
+            <div class="event-card">
+                <div class="event-card-image">
+                    <div class="img-placeholder grad-purple"></div>
+                </div>
+                <div class="event-card-body">
+                    <h3>STAN Model United Nation (MUN)</h3>
+                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 20-21 Juni 2026</div>
+                    <p class="event-desc">STAN Model United Nation (MUN) merupakan simulasi konferensi sidang Perserikatan Bangsa-Bangsa (PBB) yang bertujuan untuk melatih kemampuan berpikir kritis, diplomasi, negosiasi, serta public speaking peserta</p>
+                    <a href="daftar.html?type=lomba&nama=STAN%20Model%20United%20Nation" class="btn-card">
+                        <i class="fa-solid fa-trophy"></i> Daftar Lomba
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>DIES NATALIS XI PKN STAN</h4>
+                <p>Perayaan Dies Natalis PKN STAN yang penuh warna, kreativitas, dan kebersamaan. Mari bergabung dalam setiap rangkaian acara dan kompetisi seru!</p>
+            </div>
+            <div class="footer-col">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Kontak Kami</h4>
+                <p><i class="fa-solid fa-envelope"></i>diesnatalis@pknstan.ac.id</p>
+                <p><i class="fa-brands fa-whatsapp"></i>+6281289952858 (Bihan)</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 <strong>DIES NATALIS</strong>. All rights reserved. Privacy Policy</p>
+        </div>
+    </footer>
+    
+    <!-- ==================== MODAL LOGIN ==================== -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-dialog">
+            <button class="modal-close" onclick="closeModal('loginModal')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3>Log In</h3>
+            <form onsubmit="handleAuthSubmit(event, 'login')">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="Masukkan email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Masukkan password" required>
+                </div>
+                <button type="submit" class="btn-submit">Masuk</button>
+            </form>
+            <p style="text-align:center;margin-top:1rem;font-size:0.8rem;color:var(--text-light);">
+                Belum punya akun?
+                <a href="#" style="color:var(--pink-primary);font-weight:600;text-decoration:none;" onclick="closeModal('loginModal');setTimeout(function(){showModal('signup');},300);">Sign Up</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL SIGNUP ==================== -->
+    <div class="modal-overlay" id="signupModal">
+        <div class="modal-dialog">
+            <button class="modal-close" onclick="closeModal('signupModal')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3>Sign Up</h3>
+            <form onsubmit="handleAuthSubmit(event, 'signup')">
+                <div class="form-group">
+                    <label for="signupName">Nama Lengkap</label>
+                    <input type="text" id="signupName" placeholder="Masukkan nama lengkap" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" placeholder="Masukkan email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Buat password (min. 6 karakter)" minlength="6" required>
+                </div>
+                <button type="submit" class="btn-submit">Daftar</button>
+            </form>
+            <p style="text-align:center;margin-top:1rem;font-size:0.8rem;color:var(--text-light);">
+                Sudah punya akun?
+                <a href="#" style="color:var(--purple-primary);font-weight:600;text-decoration:none;" onclick="closeModal('signupModal');setTimeout(function(){showModal('login');},300);">Log In</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
