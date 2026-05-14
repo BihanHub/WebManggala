@@ -34,19 +34,11 @@
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #fdf2f8 0%, #faf5fc 25%, #fdf2fa 50%, #f8f0fa 75%, #fef5f9 100%);
+            background-color: #9436FF;
             background-attachment: fixed;
             color: var(--text-dark);
             min-height: 100vh;
@@ -54,1561 +46,519 @@
             overflow-x: hidden;
         }
 
-        /* ===== NAVBAR ===== */
+        #scrollProgressBar {
+            position: fixed; top: 0; left: 0; height: 3px; z-index: 9999;
+            background: linear-gradient(90deg, var(--purple-primary), var(--pink-primary), var(--purple-light));
+            border-radius: 0 3px 3px 0; width: 0%; transition: width 0.1s linear;
+            box-shadow: 0 0 12px rgba(232, 67, 147, 0.5);
+        }
+
+        .floating-bubbles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .bubble {
+            position: absolute; border-radius: 50%; opacity: 0.12;
+            animation: floatBubble infinite ease-in-out;
+        }
+        @keyframes floatBubble {
+            0%,100% { transform: translateY(0) translateX(0) scale(1); }
+            25% { transform: translateY(-60px) translateX(25px) scale(1.1); }
+            50% { transform: translateY(-20px) translateX(-15px) scale(0.95); }
+            75% { transform: translateY(-80px) translateX(-30px) scale(1.05); }
+        }
+
+        /* NAVBAR */
         .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.9);
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(255, 255, 255, 0.207);
             border-bottom: 1px solid rgba(184, 77, 186, 0.18);
-            padding: 0 2rem;
-            transition: var(--transition);
+            padding: 0 2rem; transition: var(--transition);
             box-shadow: 0 2px 20px rgba(107, 29, 110, 0.06);
-            will-change: box-shadow, background;
+            animation: slideDownNav 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
         }
-
-        .navbar.scrolled {
-            background: rgba(255, 255, 255, 0.97);
-            box-shadow: 0 4px 30px rgba(107, 29, 110, 0.12);
-        }
-
+        @keyframes slideDownNav { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .navbar.scrolled { background: rgba(255, 255, 255, 0.97); box-shadow: 0 4px 30px rgba(107, 29, 110, 0.12); }
         .navbar-inner {
-            max-width: 1300px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 70px;
-            gap: 2rem;
+            max-width: 1300px; margin: 0 auto; display: flex; align-items: center;
+            justify-content: space-between; height: 70px; gap: 2rem;
         }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            flex-shrink: 0;
-        }
-
+        .logo-section { display: flex; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0; }
         .logo-icon {
-            width: 46px;
-            height: 46px;
-            background: linear-gradient(135deg, var(--purple-primary), var(--pink-primary));
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 900;
-            font-size: 1.1rem;
-            letter-spacing: -0.5px;
-            box-shadow: var(--shadow-glow);
-            transition: var(--transition);
+            width: 46px; height: 46px; background: linear-gradient(135deg, var(--purple-primary), var(--pink-primary));
+            border-radius: 14px; display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 900; font-size: 1.1rem; letter-spacing: -0.5px;
+            box-shadow: var(--shadow-glow); transition: var(--transition);
+            animation: glowPulse 2.5s ease-in-out infinite;
         }
-
-        .logo-section:hover .logo-icon {
-            transform: scale(1.05);
-            box-shadow: 0 0 40px rgba(232, 67, 147, 0.45);
+        @keyframes glowPulse {
+            0%,100% { box-shadow: 0 0 20px rgba(232, 67, 147, 0.3); }
+            50% { box-shadow: 0 0 45px rgba(232, 67, 147, 0.65); }
         }
-
-        .logo-text {
-            font-weight: 700;
-            font-size: 1.15rem;
-            color: var(--text-dark);
-            line-height: 1.2;
-            letter-spacing: -0.3px;
-        }
-
-        .logo-text span {
-            display: block;
-            font-size: 0.7rem;
-            font-weight: 500;
-            color: var(--purple-light);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            list-style: none;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
+        .logo-section:hover .logo-icon { transform: scale(1.08); box-shadow: 0 0 50px rgba(232, 67, 147, 0.55); }
+        .logo-text { font-weight: 700; font-size: 1.15rem; color: var(--text-dark); line-height: 1.2; letter-spacing: -0.3px; }
+        .logo-text span { display: block; font-size: 0.7rem; font-weight: 500; color: var(--purple-light); letter-spacing: 1px; text-transform: uppercase; }
+        .nav-links { display: flex; align-items: center; gap: 0.4rem; list-style: none; flex-wrap: wrap; justify-content: center; }
+        .nav-links li { opacity: 0; animation: fadeInDown 0.5s ease forwards; }
+        .nav-links li:nth-child(1) { animation-delay: 0.2s; }
+        .nav-links li:nth-child(2) { animation-delay: 0.3s; }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
         .nav-links a {
-            text-decoration: none;
-            color: var(--text-medium);
-            font-weight: 500;
-            font-size: 0.9rem;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            transition: var(--transition);
-            position: relative;
-            white-space: nowrap;
-            letter-spacing: -0.2px;
+            text-decoration: none; color: var(--text-medium); font-weight: 500; font-size: 0.9rem;
+            padding: 0.5rem 1rem; border-radius: 25px; transition: var(--transition);
+            position: relative; white-space: nowrap; letter-spacing: -0.2px;
         }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--purple-primary);
-            background: rgba(184, 77, 186, 0.08);
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--purple-primary); background: rgba(184, 77, 186, 0.08);
         }
+        .nav-links a.active { font-weight: 600; background: rgba(184, 77, 186, 0.12); }
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--purple-primary); padding: 0.5rem; }
 
-        .nav-links a.active {
-            font-weight: 600;
-            background: rgba(184, 77, 186, 0.12);
-        }
-
-        .nav-auth {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-shrink: 0;
-        }
-
-        .btn-login {
-            padding: 0.55rem 1.4rem;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            letter-spacing: -0.2px;
-            background: transparent;
-            color: var(--purple-primary);
-            border: 2px solid var(--purple-soft);
-        }
-
-        .btn-login:hover {
-            background: rgba(184, 77, 186, 0.08);
-            border-color: var(--purple-light);
-        }
-
-        .btn-signup {
-            padding: 0.55rem 1.4rem;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            letter-spacing: -0.2px;
-            background: linear-gradient(135deg, var(--purple-primary), var(--pink-primary));
-            color: white;
-            border: none;
-            box-shadow: 0 4px 15px rgba(232, 67, 147, 0.3);
-        }
-
-        .btn-signup:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 28px rgba(232, 67, 147, 0.45);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--purple-primary);
-            padding: 0.5rem;
-        }
-
-        /* ===== HERO / DASHBOARD ===== */
+        /* HERO */
         .hero-section {
-            padding-top: 110px;
-            padding-bottom: 50px;
-            position: relative;
-            z-index: 1;
+            position: relative; z-index: 1; min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            background-image: url(asset/hero.jpg); background-size: cover; background-position: center;
+            isolation: isolate; animation: heroBgZoom 1.5s ease-out forwards;
+            --hero-overlay-color: rgba(107, 29, 110, 0.4);
         }
-
-        .hero-container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 0 2rem;
+        .hero-section::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2; pointer-events: none; background-color: var(--hero-overlay-color);
         }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
+        @keyframes heroBgZoom {
+            0% { background-size: 115%; background-position: 52% 50%; }
+            100% { background-size: 100%; background-position: center; }
         }
-
+        .hero-container { max-width: 900px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 3; text-align: center; }
+        .hero-content { animation: slideInLeft 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) 0.3s forwards; opacity: 0; }
+        @keyframes slideInLeft { from { opacity: 0; transform: translateX(-60px); } to { opacity: 1; transform: translateX(0); } }
         .hero-content h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            line-height: 1.15;
-            margin-bottom: 0.5rem;
+            font-size: 3rem; font-weight: 800; letter-spacing: -1px; line-height: 1.15;
+            margin-bottom: 0.5rem; color: white; text-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
-
         .hero-content h1 .gradient-text {
             background: linear-gradient(135deg, var(--purple-primary) 0%, var(--pink-primary) 50%, var(--purple-light) 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline;
+            background-size: 200% 200%; -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent; display: inline;
+            animation: shimmer 3s ease-in-out infinite;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
         }
-
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-medium);
-            margin-bottom: 1.5rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(184, 77, 186, 0.1);
-            padding: 0.5rem 1.2rem;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: var(--purple-primary);
-            margin-bottom: 1.5rem;
-            letter-spacing: 0.5px;
-        }
-
-        .hero-badge .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--pink-primary);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.5;
-                transform: scale(1.6);
-            }
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-
+        @keyframes shimmer { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
         .btn-primary {
-            padding: 0.8rem 2rem;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            letter-spacing: -0.2px;
+            padding: 0.8rem 2rem; border-radius: 30px; font-weight: 700; font-size: 0.95rem;
+            cursor: pointer; transition: var(--transition); text-decoration: none;
             background: linear-gradient(135deg, var(--purple-primary), var(--pink-primary));
-            color: white;
-            border: none;
-            box-shadow: 0 6px 24px rgba(232, 67, 147, 0.35);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            color: white; border: none; box-shadow: 0 6px 24px rgba(232, 67, 147, 0.35);
+            display: inline-flex; align-items: center; gap: 8px; position: relative; overflow: hidden;
+            animation: btnPopIn 0.5s ease 0.7s forwards; opacity: 0;
         }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(232, 67, 147, 0.5);
+        @keyframes btnPopIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        .btn-primary::after {
+            content: ''; position: absolute; top: -50%; left: -75%; width: 50%; height: 200%;
+            background: rgba(255, 255, 255, 0.25); transform: skewX(-25deg);
+            animation: btnShimmer 3s ease-in-out infinite;
         }
-
+        @keyframes btnShimmer { 0%,100% { left: -75%; } 50% { left: 125%; } }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(232, 67, 147, 0.5); }
         .btn-outline {
-            padding: 0.8rem 2rem;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            letter-spacing: -0.2px;
-            background: transparent;
-            color: var(--purple-primary);
-            border: 2.5px solid var(--purple-soft);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            padding: 0.8rem 2rem; border-radius: 30px; font-weight: 700; font-size: 0.95rem;
+            cursor: pointer; transition: var(--transition); text-decoration: none;
+            background: transparent; color: white; border: 2.5px solid var(--purple-soft);
+            display: inline-flex; align-items: center; gap: 8px;
+            animation: btnPopIn 0.5s ease 0.85s forwards; opacity: 0;
         }
+        .btn-outline:hover { background: rgba(255,255,255,0.15); border-color: white; transform: translateY(-2px); }
 
-        .btn-outline:hover {
-            background: rgba(184, 77, 186, 0.06);
-            border-color: var(--purple-light);
-            transform: translateY(-2px);
+        /* ABOUT US */
+        .aboutus-section { padding: 80px 0; position: relative; background: linear-gradient(180deg, #fdf2f8 0%, #faf5fc 30%, #ffffff 100%); overflow: hidden; z-index: 1; }
+        .aboutus-container { max-width: 1300px; margin: 0 auto; padding: 0 2rem; }
+        .aboutus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .animate-on-scroll { opacity: 0; transition: opacity 0.8s ease, transform 0.8s ease; }
+        .animate-on-scroll.from-left { transform: translateX(-50px); }
+        .animate-on-scroll.from-right { transform: translateX(50px); }
+        .animate-on-scroll.from-bottom { transform: translateY(40px); }
+        .animate-on-scroll.show { opacity: 1; transform: translateX(0) translateY(0); }
+        .aboutus-card.animate-on-scroll:nth-child(1) { transition-delay: 0s; }
+        .aboutus-card.animate-on-scroll:nth-child(2) { transition-delay: 0.15s; }
+        .aboutus-card.animate-on-scroll:nth-child(3) { transition-delay: 0.3s; }
+        .aboutus-text { position: relative; z-index: 2; }
+        .aboutus-eyebrow { display: inline-block; font-weight: 600; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; color: var(--purple-primary); background: rgba(184, 77, 186, 0.1); padding: 0.35rem 1.2rem; border-radius: 20px; margin-bottom: 1.2rem; }
+        .aboutus-text h2 { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.8px; line-height: 1.25; margin-bottom: 1.2rem; color: var(--text-dark); }
+        .aboutus-text h2 .highlight { background: linear-gradient(135deg, var(--purple-primary), var(--pink-primary)); background-size: 200% 200%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 3s ease-in-out infinite; }
+        .aboutus-description { font-size: 1.05rem; color: var(--text-medium); line-height: 1.75; margin-bottom: 1.8rem; max-width: 90%; }
+        .aboutus-features { list-style: none; display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+        .aboutus-features li { display: flex; align-items: center; gap: 10px; font-weight: 500; color: var(--text-dark); font-size: 0.95rem; opacity: 0; transform: translateX(-20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+        .aboutus-features li.show { opacity: 1; transform: translateX(0); }
+        .aboutus-features li i { color: var(--pink-primary); font-size: 1.1rem; width: 20px; text-align: center; }
+        .aboutus-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; justify-items: center; align-items: center; max-width: 900px; margin: 0 auto; }
+        .aboutus-card {
+            background: linear-gradient(180deg, #9f359a 10%, #fef7fb 99%); border-radius: var(--radius-lg);
+            padding: 1.8rem 1.5rem; box-shadow: 0 10px 30px -10px rgba(107, 29, 110, 0.1);
+            max-width: 360px; min-height: 300px; display: flex; align-items: center; gap: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(184, 77, 186, 0.08);
+            position: relative; overflow: visible;
         }
+        .aboutus-card:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; max-width: 300px; }
+        .calendar-holes { position: absolute; top: -12px; left: 0; width: 100%; display: flex; justify-content: space-evenly; padding: 0 20px; pointer-events: none; z-index: 5; }
+        .hole { width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 2px solid #b84dba; box-shadow: 0 0 0 3px #fdf2f8, inset 0 0 0 2px #fdf2f8; flex-shrink: 0; }
+        .aboutus-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -15px rgba(107, 29, 110, 0.25); border-color: rgba(232, 67, 147, 0.2); }
+        .aboutus-card .card-icon { width: 56px; height: 56px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; background: white; box-shadow: 0 6px 15px rgba(107, 29, 110, 0.1); transition: transform 0.3s ease; }
+        .aboutus-card:hover .card-icon { transform: scale(1.08) rotate(-5deg); }
+        .card-icon.purple { background: linear-gradient(135deg, #f3e3fa, #e8d5f5); color: var(--purple-primary); }
+        .card-icon.pink { background: linear-gradient(135deg, #ffe0e8, #fdc6d9); color: var(--pink-primary); }
+        .card-icon.gold { background: linear-gradient(135deg, #fff3e0, #ffe0b2); color: #f39c12; }
+        .aboutus-card .card-info h4 { font-weight: 700; font-size: 1rem; margin-bottom: 0.2rem; color: var(--text-dark); }
+        .aboutus-card .card-info p { font-size: 0.85rem; color: var(--text-light); line-height: 1.4; }
 
-        .hero-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        /* TIMELINE SNAKE */
+        .timeline-section { padding: 80px 0; background: linear-gradient(180deg, #ffffff 0%, #fef7fb 100%); position: relative; z-index: 1; }
+        .timeline-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .timeline-container h2 { text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 3rem; color: var(--text-dark); }
+        .timeline-container h2 .highlight { background: linear-gradient(135deg, var(--purple-primary), var(--pink-primary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .snake-wrapper { position: relative; width: 100%; overflow-x: auto; padding: 2rem 0 0; }
+        .snake-timeline { position: relative; width: 100%; margin: 0 auto; }
+        .snake-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        .snake-path { fill: none; stroke: var(--purple-soft); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 8 6; opacity: 0.6; }
+        .timeline-node {
+            position: absolute; z-index: 2; cursor: pointer;
+            width: 70px; height: 70px; background: white; border-radius: 50%;
+            box-shadow: 0 6px 20px rgba(107, 29, 110, 0.2); border: 3px solid var(--purple-primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+            font-weight: 700; color: var(--purple-primary); font-size: 1rem;
+            text-align: center; line-height: 1.2; padding: 5px;
+            display: flex; align-items: center; justify-content: center;
+            transform: translate(-50%, -50%);
         }
+        .timeline-node:hover { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 12px 30px rgba(232, 67, 147, 0.4); border-color: var(--pink-primary); }
+        .timeline-node.active { background: var(--purple-primary); color: white; border-color: var(--pink-primary); }
 
-        .hero-card-stack {
-            position: relative;
-            width: 100%;
-            max-width: 420px;
-            aspect-ratio: 1 / 1;
-        }
-
-        .hero-floating-card {
-            position: absolute;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-            background: white;
-        }
-
-        .hero-floating-card.card-main {
-            width: 75%;
-            aspect-ratio: 1 / 1;
-            top: 10%;
-            left: 12.5%;
-            background: linear-gradient(145deg, #ffffff, #fdf2fa);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 3;
-            border: 2px solid rgba(184, 77, 186, 0.2);
-        }
-
-        .card-main-inner {
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .card-main-inner .big-number {
-            font-size: 4.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--purple-primary), var(--pink-primary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1;
-        }
-
-        .card-main-inner .big-label {
-            font-weight: 700;
-            color: var(--text-medium);
-            font-size: 1rem;
-            letter-spacing: 1px;
-        }
-
-        .hero-floating-card.card-top-right {
-            width: 40%;
-            aspect-ratio: 1.3 / 1;
-            top: 2%;
-            right: 4%;
-            z-index: 4;
-            background: white;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border: 2px solid rgba(253, 121, 168, 0.3);
-        }
-
-        .hero-floating-card.card-top-right .icon-circle {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--pink-soft), var(--pink-pastel));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            color: var(--pink-primary);
-            margin-bottom: 6px;
-        }
-
-        .hero-floating-card.card-top-right .stat-num {
-            font-weight: 800;
-            font-size: 1.3rem;
-            color: var(--text-dark);
-        }
-
-        .hero-floating-card.card-top-right .stat-lbl {
-            font-size: 0.7rem;
-            color: var(--text-light);
-            font-weight: 500;
-        }
-
-        .hero-floating-card.card-bottom-left {
-            width: 38%;
-            aspect-ratio: 1.3 / 1;
-            bottom: 5%;
-            left: 3%;
-            z-index: 4;
-            background: white;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border: 2px solid rgba(142, 42, 143, 0.25);
-        }
-
-        .hero-floating-card.card-bottom-left .icon-circle {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #e8d5f5, #f3e3fa);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            color: var(--purple-medium);
-            margin-bottom: 6px;
-        }
-
-        .hero-floating-card.card-bottom-left .stat-num {
-            font-weight: 800;
-            font-size: 1.3rem;
-            color: var(--text-dark);
-        }
-
-        .hero-floating-card.card-bottom-left .stat-lbl {
-            font-size: 0.7rem;
-            color: var(--text-light);
-            font-weight: 500;
-        }
-
-        /* ===== DASHBOARD STATS BAR ===== */
-        .stats-bar {
-            max-width: 1300px;
-            margin: 2rem auto 0;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: var(--radius-lg);
-            padding: 1.4rem 1.2rem;
-            text-align: center;
-            border: 1.5px solid rgba(184, 77, 186, 0.15);
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
-            will-change: transform;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-            border-color: rgba(232, 67, 147, 0.3);
-        }
-
-        .stat-card .stat-icon {
-            font-size: 2rem;
-            margin-bottom: 0.4rem;
-            display: block;
-        }
-        .stat-card .stat-value {
-            font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            background: linear-gradient(135deg, var(--purple-primary), var(--pink-primary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .stat-card .stat-label {
-            font-size: 0.8rem;
-            color: var(--text-light);
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-
-        /* ===== EVENTS SECTION ===== */
-        .section-container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .section-header .section-tag {
-            display: inline-block;
-            padding: 0.4rem 1.2rem;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.8rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            margin-bottom: 0.8rem;
-        }
-
-        .section-tag.purple {
-            background: rgba(142, 42, 143, 0.1);
-            color: var(--purple-primary);
-        }
-        .section-tag.pink {
-            background: rgba(232, 67, 147, 0.1);
-            color: var(--pink-primary);
-        }
-
-        .section-header h2 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            letter-spacing: -0.8px;
-            color: var(--text-dark);
-            margin-bottom: 0.3rem;
-        }
-
-        .section-header p {
-            color: var(--text-medium);
-            font-size: 0.95rem;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .event-card {
-            background: white;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            border: 1.5px solid rgba(184, 77, 186, 0.12);
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
-            position: relative;
-            will-change: transform;
-        }
-
-        .event-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-            border-color: rgba(232, 67, 147, 0.35);
-        }
-
-        .event-card-image {
-            height: 170px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .event-card-image .img-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.5rem;
-            color: white;
-        }
-
-        .img-placeholder.grad-purple {
-            background: linear-gradient(135deg, #7b2cbf, #9d4edd);
-        }
-        .img-placeholder.grad-pink {
-            background: linear-gradient(135deg, #e84393, #fd79a8);
-        }
-        .img-placeholder.grad-mixed {
-            background: linear-gradient(135deg, #6b1d6e, #c44d8f);
-        }
-        .img-placeholder.grad-soft {
-            background: linear-gradient(135deg, #b84dba, #e89ac7);
-        }
-
-        .event-card-badge {
-            position: absolute;
-            top: 14px;
-            right: 14px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 0.35rem 0.9rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--purple-primary);
-            letter-spacing: 0.5px;
-        }
-
-        .event-card-body {
-            padding: 1.3rem;
-        }
-
-        .event-card-body h3 {
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 0.4rem;
-            color: var(--text-dark);
-            letter-spacing: -0.3px;
-        }
-        .event-card-body .event-date {
-            font-size: 0.8rem;
-            color: var(--text-light);
-            margin-bottom: 0.7rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .event-card-body .event-desc {
-            font-size: 0.85rem;
-            color: var(--text-medium);
-            line-height: 1.5;
-            margin-bottom: 1rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .btn-card {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 0.55rem 1.3rem;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 0.82rem;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            letter-spacing: -0.2px;
-            background: linear-gradient(135deg, var(--purple-primary), var(--pink-primary));
-            color: white;
-            border: none;
-            box-shadow: 0 3px 12px rgba(232, 67, 147, 0.25);
-        }
-        .btn-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(232, 67, 147, 0.4);
-        }
-
-        .btn-card.outline {
-            background: transparent;
-            color: var(--purple-primary);
-            border: 2px solid var(--purple-soft);
-            box-shadow: none;
-        }
-        .btn-card.outline:hover {
-            background: rgba(184, 77, 186, 0.06);
-            box-shadow: var(--shadow-sm);
-        }
-
-        /* ===== REGISTRATION CTA BANNER ===== */
-        .cta-banner {
-            max-width: 1300px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-inner {
-            background: linear-gradient(135deg, #fdf2fa 0%, #fef5f9 40%, #faf0fa 100%);
-            border-radius: var(--radius-xl);
-            padding: 2.5rem 3rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2rem;
-            flex-wrap: wrap;
-            border: 2px dashed rgba(184, 77, 186, 0.3);
-            position: relative;
-        }
-
-        .cta-text h3 {
-            font-size: 1.6rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            color: var(--text-dark);
-        }
-        .cta-text p {
-            color: var(--text-medium);
-            font-size: 0.9rem;
-            margin-top: 0.3rem;
-        }
-        .cta-buttons {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ===== MODAL ===== */
+        /* MODAL */
         .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.55);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000; display: flex;
+            align-items: center; justify-content: center; opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        .modal-dialog {
-            background: white;
-            border-radius: var(--radius-xl);
-            padding: 2.5rem;
-            width: 90%;
-            max-width: 520px;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            transform: translateY(20px);
+        .modal-overlay.show { opacity: 1; visibility: visible; }
+        .modal-content {
+            background: white; border-radius: var(--radius-xl); padding: 2.5rem 2rem;
+            max-width: 500px; width: 90%; text-align: center; position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3); transform: translateY(30px);
             transition: transform 0.3s ease;
-            max-height: 85vh;
-            overflow-y: auto;
         }
-        .modal-overlay.active .modal-dialog {
-            transform: translateY(0);
-        }
+        .modal-overlay.show .modal-content { transform: translateY(0); }
         .modal-close {
-            position: absolute;
-            top: 16px;
-            right: 20px;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-light);
-            transition: var(--transition);
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: absolute; top: 1rem; right: 1rem; background: none; border: none;
+            font-size: 1.5rem; cursor: pointer; color: var(--text-medium);
+            transition: color 0.2s;
         }
-        .modal-close:hover {
-            background: rgba(184, 77, 186, 0.08);
-            color: var(--purple-primary);
-        }
-        .modal-dialog h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1.3rem;
-            letter-spacing: -0.4px;
-            color: var(--text-dark);
-        }
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            font-size: 0.85rem;
-            margin-bottom: 0.35rem;
-            color: var(--text-medium);
-            letter-spacing: -0.2px;
-        }
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 0.7rem 1rem;
-            border-radius: var(--radius-sm);
-            border: 2px solid var(--gray-medium);
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
-            transition: var(--transition);
-            background: var(--gray-light);
-            color: var(--text-dark);
-        }
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--purple-light);
-            box-shadow: 0 0 0 4px rgba(184, 77, 186, 0.08);
-            background: white;
-        }
-        .btn-submit {
-            width: 100%;
-            padding: 0.8rem;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: var(--transition);
-            background: linear-gradient(135deg, var(--purple-primary), var(--pink-primary));
-            color: white;
-            border: none;
-            box-shadow: 0 4px 18px rgba(232, 67, 147, 0.3);
-            letter-spacing: -0.2px;
-            margin-top: 0.5rem;
-        }
-        .btn-submit:hover {
-            box-shadow: 0 8px 28px rgba(232, 67, 147, 0.45);
-            transform: translateY(-2px);
-        }
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #2d1a2e;
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            z-index: 3000;
-            box-shadow: var(--shadow-lg);
-            transform: translateX(120%);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            letter-spacing: -0.2px;
-        }
-        .toast.show {
-            transform: translateX(0);
-        }
-        .toast.success {
-            background: linear-gradient(135deg, #2d1a2e, #4a154b);
-            border: 2px solid rgba(253, 121, 168, 0.5);
-        }
+        .modal-close:hover { color: var(--pink-primary); }
+        .modal-content h3 { font-size: 1.8rem; color: var(--purple-primary); margin-bottom: 0.5rem; }
+        .modal-content .date { font-weight: 600; color: var(--pink-primary); margin-bottom: 1rem; }
+        .modal-content p { color: var(--text-medium); line-height: 1.6; }
 
-        /* ===== FOOTER ===== */
+        /* FOOTER */
         .footer {
-            background: white;
-            border-top: 1px solid rgba(184, 77, 186, 0.15);
-            padding: 2rem;
-            text-align: center;
-            color: var(--text-light);
-            font-size: 0.85rem;
-            position: relative;
-            z-index: 1;
+            background: white; border-top: 1px solid rgba(184, 77, 186, 0.15);
+            padding: 2rem; text-align: center; color: var(--text-light); font-size: 0.85rem;
+            position: relative; z-index: 1; opacity: 0; animation: fadeIn 0.8s ease 1s forwards;
         }
-        .footer strong {
-            color: var(--purple-primary);
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .footer strong { color: var(--purple-primary); }
 
-        /* ===== RESPONSIVE ===== */
+        /* RESPONSIVE */
         @media (max-width: 1024px) {
-            .stats-bar {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .hero-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .hero-visual {
-                order: -1;
-            }
-            .hero-card-stack {
-                max-width: 300px;
-                margin: 0 auto;
-            }
-            .hero-content h1 {
-                font-size: 2.2rem;
-            }
-            .hero-buttons {
-                justify-content: center;
-            }
+            .aboutus-grid { grid-template-columns: 1fr; text-align: center; }
+            .aboutus-description { max-width: 100%; }
+            .aboutus-features { align-items: center; }
+            .hero-content h1 { font-size: 2.5rem; }
         }
-
+        @media (max-width: 900px) {
+            .aboutus-cards { grid-template-columns: 1fr; }
+            .aboutus-card:last-child:nth-child(odd) { grid-column: auto; max-width: 360px; }
+            .aboutus-text h2 { font-size: 2rem; }
+        }
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                right: 0;
-                background: rgba(255, 255, 255, 0.98);
-                flex-direction: column;
-                padding: 1.5rem;
-                gap: 0.3rem;
-                box-shadow: var(--shadow-lg);
-                border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-                z-index: 999;
-            }
-            .nav-links.show {
-                display: flex;
-            }
-            .mobile-menu-btn {
-                display: block;
-            }
-            .nav-auth {
-                gap: 6px;
-            }
-            .btn-login,
-            .btn-signup {
-                padding: 0.45rem 1rem;
-                font-size: 0.78rem;
-            }
-            .stats-bar {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.8rem;
-            }
-            .stat-card {
-                padding: 1rem;
-            }
-            .stat-card .stat-value {
-                font-size: 1.4rem;
-            }
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-            .cta-inner {
-                text-align: center;
-                justify-content: center;
-                padding: 2rem 1.5rem;
-            }
-            .cta-buttons {
-                justify-content: center;
-            }
-            .hero-content h1 {
-                font-size: 1.8rem;
-            }
+            .nav-links { display: none; position: absolute; top: 70px; left: 0; right: 0; background: rgba(255,255,255,0.98); flex-direction: column; padding: 1.5rem; gap: 0.3rem; box-shadow: var(--shadow-lg); border-radius: 0 0 var(--radius-lg) var(--radius-lg); z-index: 999; }
+            .nav-links.show { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .hero-content h1 { font-size: 2rem; }
+            .timeline-node { width: 55px; height: 55px; font-size: 0.8rem; }
         }
-
         @media (max-width: 480px) {
-            .navbar-inner {
-                gap: 0.8rem;
-            }
-            .logo-text {
-                font-size: 0.9rem;
-            }
-            .logo-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 0.85rem;
-                border-radius: 10px;
-            }
-            .btn-login,
-            .btn-signup {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.72rem;
-            }
-            .hero-section {
-                padding-top: 90px;
-            }
-            .hero-content h1 {
-                font-size: 1.5rem;
-            }
-            .section-header h2 {
-                font-size: 1.5rem;
-            }
-            .stats-bar {
-                grid-template-columns: 1fr 1fr;
-                gap: 0.6rem;
-            }
-            .stat-card .stat-value {
-                font-size: 1.2rem;
-            }
+            .logo-icon { width: 36px; height: 36px; font-size: 0.85rem; border-radius: 10px; }
+            .hero-content h1 { font-size: 1.8rem; }
+            .aboutus-text h2 { font-size: 1.6rem; }
         }
     </style>
 </head>
 <body>
+    <div id="scrollProgressBar"></div>
+    <div class="floating-bubbles" id="floatingBubbles"></div>
 
-    <!-- ==================== NAVBAR ==================== -->
+    <!-- NAVBAR -->
     <nav class="navbar" id="navbar">
         <div class="navbar-inner">
             <a href="#" class="logo-section">
                 <div class="logo-icon">IL</div>
-                <div class="logo-text">
-                    INI LHO ITS!
-                    <span>2025 - Dies Natalis</span>
-                </div>
+                <div class="logo-text">Dies Natalis 11<span>Politeknik Keuangan Negara STAN</span></div>
             </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#beranda" class="active" data-section="beranda">Beranda</a></li>
-                <li><a href="#acara" data-section="acara">Mata Acara</a></li>
-                <li><a href="#lomba" data-section="lomba">Lomba</a></li>
-                <li><a href="#daftar" data-section="daftar">Pendaftaran</a></li>
+                <li><a href="#timeline" data-section="timeline">Timeline</a></li>
             </ul>
-            <div class="nav-auth">
-                <button class="btn-login" onclick="showModal('login')">Log In</button>
-                <button class="btn-signup" onclick="showModal('signup')">Sign Up</button>
-            </div>
-            <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()">
-                <i class="fa-solid fa-bars"></i>
-            </button>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fa-solid fa-bars"></i></button>
         </div>
     </nav>
 
-    <!-- ==================== HERO / DASHBOARD ==================== -->
+    <!-- HERO -->
     <section class="hero-section" id="beranda">
         <div class="hero-container">
-            <div class="hero-grid">
-                <div class="hero-content">
-                    <div class="hero-badge">
-                        <span class="dot"></span> Dies Natalis 2025 - #IniLhoITS
-                    </div>
-                    <h1>
-                        Selamat Datang di<br>
-                        <span class="gradient-text">INI LHO ITS! 2025</span>
-                    </h1>
-                    <p class="hero-subtitle">
-                        Rayakan Dies Natalis dengan semangat! Bergabunglah dalam berbagai mata acara seru dan kompetisi menarik. Daftar sekarang dan jadilah bagian dari kemeriahan!
+            <div class="hero-content">
+                <h1>Selamat Datang di<br><span class="gradient-text">DIES NATALIS 11<br>PKN STAN</span></h1>
+                <div class="hero-buttons">
+                    <a href="#timeline" class="btn-primary"><i class="fa-solid fa-ticket"></i> Lihat Timeline</a>
+                    <a href="#tentang" class="btn-outline"><i class="fa-solid fa-circle-info"></i> Tentang Acara</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT US -->
+    <section class="aboutus-section" id="tentang">
+        <div class="aboutus-container">
+            <div class="aboutus-grid">
+                <div class="aboutus-text animate-on-scroll from-left">
+                    <span class="aboutus-eyebrow">🎉 Tentang Acara</span>
+                    <h2>Apa Itu <span class="highlight">Dies Natalis 11</span> PKN STAN?</h2>
+                    <p class="aboutus-description">
+                        Dies Natalis ke-11 Politeknik Keuangan Negara STAN adalah perayaan tahunan
+                        yang mempertemukan mahasiswa, alumni, dosen, dan seluruh keluarga besar kampus
+                        dalam rangkaian acara penuh makna. Tahun ini kami mengusung tema
+                        <strong>"Bersama Berinovasi, Berkarya untuk Negeri"</strong> —
+                        sebagai wujud semangat baru pasca satu dekade pengabdian.
                     </p>
-                    <div class="hero-buttons">
-                        <a href="#acara" class="btn-primary">
-                            <i class="fa-solid fa-ticket"></i> Daftar Mata Acara
-                        </a>
-                        <a href="#lomba" class="btn-outline">
-                            <i class="fa-solid fa-trophy"></i> Daftar Lomba
-                        </a>
-                    </div>
+                    <ul class="aboutus-features" id="aboutusFeatureList">
+                        <li><i class="fa-solid fa-calendar-star"></i> Rangkaian acara: seminar, workshop, & malam puncak</li>
+                        <li><i class="fa-solid fa-trophy"></i> Kompetisi bergengsi: akademik, seni, olahraga</li>
+                        <li><i class="fa-solid fa-hand-holding-heart"></i> Kegiatan sosial & pengabdian masyarakat</li>
+                        <li><i class="fa-solid fa-users"></i> Terbuka untuk mahasiswa, alumni, dan umum</li>
+                    </ul>
                 </div>
-                <div class="hero-visual">
-                    <div class="hero-card-stack">
-                        <div class="hero-floating-card card-top-right">
-                            <div class="icon-circle"><i class="fa-solid fa-calendar-check"></i></div>
-                            <div class="stat-num">15+</div>
-                            <div class="stat-lbl">Mata Acara</div>
-                        </div>
-                        <div class="hero-floating-card card-main">
-                            <div class="card-main-inner">
-                                <div class="big-number">2025</div>
-                                <div class="big-label">DIES NATALIS</div>
-                                <p style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">INI LHO ITS!</p>
-                            </div>
-                        </div>
-                        <div class="hero-floating-card card-bottom-left">
-                            <div class="icon-circle"><i class="fa-solid fa-medal"></i></div>
-                            <div class="stat-num">8</div>
-                            <div class="stat-lbl">Kategori Lomba</div>
-                        </div>
+                <div class="aboutus-cards">
+                    <div class="aboutus-card animate-on-scroll from-right">
+                        <div class="calendar-holes"><span class="hole"></span><span class="hole"></span><span class="hole"></span></div>
+                        <div class="card-icon purple"><i class="fa-solid fa-calendar-check"></i></div>
+                        <div class="card-info"><h4>15+ Mata Acara</h4><p>Dari talkshow inspiratif hingga konser puncak.</p></div>
+                    </div>
+                    <div class="aboutus-card animate-on-scroll from-right">
+                        <div class="calendar-holes"><span class="hole"></span><span class="hole"></span><span class="hole"></span></div>
+                        <div class="card-icon pink"><i class="fa-solid fa-medal"></i></div>
+                        <div class="card-info"><h4>8 Kategori Lomba</h4><p>Akademik, seni, e-sport, dan banyak lagi.</p></div>
+                    </div>
+                    <div class="aboutus-card animate-on-scroll from-right">
+                        <div class="calendar-holes"><span class="hole"></span><span class="hole"></span><span class="hole"></span></div>
+                        <div class="card-icon gold"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="card-info"><h4>Kampus PKN STAN</h4><p>Jl. Bintaro Utama Sektor V, Tangerang Selatan.</p></div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Dashboard Stats -->
-        <div class="stats-bar">
-            <div class="stat-card">
-                <span class="stat-icon"><i class="fa-solid fa-calendar-star" style="color:#b84dba;"></i></span>
-                <span class="stat-value">15+</span>
-                <span class="stat-label">Mata Acara Tersedia</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-icon"><i class="fa-solid fa-medal" style="color:#e84393;"></i></span>
-                <span class="stat-value">8</span>
-                <span class="stat-label">Kategori Lomba</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-icon"><i class="fa-solid fa-users" style="color:#8e2a8f;"></i></span>
-                <span class="stat-value">2,500+</span>
-                <span class="stat-label">Peserta Terdaftar</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-icon"><i class="fa-solid fa-gift" style="color:#e84393;"></i></span>
-                <span class="stat-value">Rp50M+</span>
-                <span class="stat-label">Total Hadiah</span>
-            </div>
-        </div>
     </section>
 
-    <!-- ==================== MATA ACARA ==================== -->
-    <section class="section-container" id="acara">
-        <div class="section-header">
-            <span class="section-tag purple">Mata Acara</span>
-            <h2>Rangkaian Acara Seru</h2>
-            <p>Beragam kegiatan menarik menanti partisipasimu. Pilih dan daftar sekarang!</p>
-        </div>
-        <div class="cards-grid">
-            <!-- Card 1 -->
-            <div class="event-card">
-                <div class="event-card-image">
-                    <div class="img-placeholder grad-purple"><i class="fa-solid fa-music"></i></div>
-                    <span class="event-card-badge">POPULER</span>
-                </div>
-                <div class="event-card-body">
-                    <h3>Malam Puncak Dies Natalis</h3>
-                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 20 Desember 2025 - 19:00 WIB</div>
-                    <p class="event-desc">Perayaan malam puncak dengan penampilan bintang tamu spesial, pesta kembang api, dan pengumuman pemenang lomba.</p>
-                    <button class="btn-card" onclick="openRegistration('Malam Puncak Dies Natalis', 'acara')">
-                        <i class="fa-solid fa-ticket"></i> Daftar Sekarang
-                    </button>
-                </div>
-            </div>
-            <!-- Card 2 -->
-            <div class="event-card">
-                <div class="event-card-image">
-                    <div class="img-placeholder grad-pink"><i class="fa-solid fa-people-group"></i></div>
-                    <span class="event-card-badge">BARU</span>
-                </div>
-                <div class="event-card-body">
-                    <h3>Seminar Inspiratif</h3>
-                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 15-16 Desember 2025</div>
-                    <p class="event-desc">Hadiri seminar dengan pembicara inspiratif dari berbagai bidang. Dapatkan wawasan baru dan networking luas.</p>
-                    <button class="btn-card" onclick="openRegistration('Seminar Inspiratif', 'acara')">
-                        <i class="fa-solid fa-ticket"></i> Daftar Sekarang
-                    </button>
-                </div>
-            </div>
-            <!-- Card 3 -->
-            <div class="event-card">
-                <div class="event-card-image">
-                    <div class="img-placeholder grad-mixed"><i class="fa-solid fa-utensils"></i></div>
-                </div>
-                <div class="event-card-body">
-                    <h3>Festival Kuliner Nusantara</h3>
-                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 17-19 Desember 2025</div>
-                    <p class="event-desc">Jelajahi ragam kuliner dari seluruh Indonesia. Nikmati pameran, workshop masak, dan kompetisi makan.</p>
-                    <button class="btn-card" onclick="openRegistration('Festival Kuliner Nusantara', 'acara')">
-                        <i class="fa-solid fa-ticket"></i> Daftar Sekarang
-                    </button>
-                </div>
-            </div>
-            <!-- Card 4 -->
-            <div class="event-card">
-                <div class="event-card-image">
-                    <div class="img-placeholder grad-soft"><i class="fa-solid fa-futbol"></i></div>
-                    <span class="event-card-badge">SPORT</span>
-                </div>
-                <div class="event-card-body">
-                    <h3>Turnamen Olahraga</h3>
-                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 10-18 Desember 2025</div>
-                    <p class="event-desc">Kompetisi futsal, basket, badminton, dan e-sports. Tunjukkan bakatmu dan raih kemenangan!</p>
-                    <button class="btn-card" onclick="openRegistration('Turnamen Olahraga', 'acara')">
-                        <i class="fa-solid fa-ticket"></i> Daftar Sekarang
-                    </button>
-                </div>
-            </div>
-            <!-- Card 5 -->
-            <div class="event-card">
-                <div class="event-card-image">
-                    <div class="img-placeholder grad-purple"><i class="fa-solid fa-palette"></i></div>
-                </div>
-                <div class="event-card-body">
-                    <h3>Pameran Seni & Karya</h3>
-                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 12-20 Desember 2025</div>
-                    <p class="event-desc">Eksplorasi kreativitas melalui pameran seni rupa, instalasi, fotografi, dan karya inovatif mahasiswa.</p>
-                    <button class="btn-card" onclick="openRegistration('Pameran Seni & Karya', 'acara')">
-                        <i class="fa-solid fa-ticket"></i> Daftar Sekarang
-                    </button>
-                </div>
-            </div>
-            <!-- Card 6 -->
-            <div class="event-card">
-                <div class="event-card-image">
-                    <div class="img-placeholder grad-pink"><i class="fa-solid fa-hand-holding-heart"></i></div>
-                    <span class="event-card-badge">SOSIAL</span>
-                </div>
-                <div class="event-card-body">
-                    <h3>Bakti Sosial</h3>
-                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 14 Desember 2025</div>
-                    <p class="event-desc">Kegiatan bakti sosial untuk masyarakat sekitar. Berbagi kebahagiaan di momen Dies Natalis.</p>
-                    <button class="btn-card" onclick="openRegistration('Bakti Sosial', 'acara')">
-                        <i class="fa-solid fa-ticket"></i> Daftar Sekarang
-                    </button>
+    <!-- TIMELINE SNAKE -->
+    <section class="timeline-section" id="timeline">
+        <div class="timeline-container">
+            <h2 class="animate-on-scroll from-bottom">📅 <span class="highlight">Timeline Kegiatan</span></h2>
+            <div class="snake-wrapper">
+                <div class="snake-timeline" id="snakeTimeline">
+                    <svg class="snake-svg" id="snakeSvg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet"></svg>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ==================== LOMBA ==================== -->
-    <section class="section-container" id="lomba">
-        <div class="section-header">
-            <span class="section-tag pink">Lomba</span>
-            <h2>Kompetisi Bergengsi</h2>
-            <p>Ikuti berbagai lomba dengan hadiah menarik dan buktikan kemampuanmu!</p>
-        </div>
-        <div class="cards-grid">
-            <!-- Lomba 1 -->
-            <div class="event-card">
-                <div class="event-card-image">
-                    <div class="img-placeholder grad-mixed"><i class="fa-solid fa-code"></i></div>
-                    <span class="event-card-badge">IT</span>
-                </div>
-                <div class="event-card-body">
-                    <h3>Hackathon 2025</h3>
-                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 13-14 Desember 2025</div>
-                    <p class="event-desc">Kompetisi coding 24 jam untuk menciptakan solusi digital inovatif. Total hadiah Rp15 juta!</p>
-                    <button class="btn-card" onclick="openRegistration('Hackathon 2025', 'lomba')">
-                        <i class="fa-solid fa-trophy"></i> Daftar Lomba
-                    </button>
-                </div>
-            </div>
-            <!-- Lomba 2 -->
-            <div class="event-card">
-                <div class="event-card-image">
-                    <div class="img-placeholder grad-purple"><i class="fa-solid fa-microphone"></i></div>
-                </div>
-                <div class="event-card-body">
-                    <h3>Debat Bahasa Inggris</h3>
-                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 16-17 Desember 2025</div>
-                    <p class="event-desc">Adu argumen dan kemampuan public speaking dalam bahasa Inggris. Terbuka untuk semua jurusan!</p>
-                    <button class="btn-card" onclick="openRegistration('Debat Bahasa Inggris', 'lomba')">
-                        <i class="fa-solid fa-trophy"></i> Daftar Lomba
-                    </button>
-                </div>
-            </div>
-            <!-- Lomba 3 -->
-            <div class="event-card">
-                <div class="event-card-image">
-                    <div class="img-placeholder grad-pink"><i class="fa-solid fa-camera-retro"></i></div>
-                    <span class="event-card-badge">FOTO</span>
-                </div>
-                <div class="event-card-body">
-                    <h3>Lomba Fotografi</h3>
-                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 10-19 Desember 2025</div>
-                    <p class="event-desc">Abadikan momen terbaik dengan tema "Semangat Dies Natalis". Hadiah kamera dan uang tunai!</p>
-                    <button class="btn-card" onclick="openRegistration('Lomba Fotografi', 'lomba')">
-                        <i class="fa-solid fa-trophy"></i> Daftar Lomba
-                    </button>
-                </div>
-            </div>
-            <!-- Lomba 4 -->
-            <div class="event-card">
-                <div class="event-card-image">
-                    <div class="img-placeholder grad-soft"><i class="fa-solid fa-masks-theater"></i></div>
-                </div>
-                <div class="event-card-body">
-                    <h3>Pentas Seni & Drama</h3>
-                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 18 Desember 2025</div>
-                    <p class="event-desc">Kompetisi drama dan pertunjukan seni antar fakultas. Kreativitas tanpa batas di atas panggung!</p>
-                    <button class="btn-card" onclick="openRegistration('Pentas Seni & Drama', 'lomba')">
-                        <i class="fa-solid fa-trophy"></i> Daftar Lomba
-                    </button>
-                </div>
-            </div>
-            <!-- Lomba 5 -->
-            <div class="event-card">
-                <div class="event-card-image">
-                    <div class="img-placeholder grad-mixed"><i class="fa-solid fa-robot"></i></div>
-                    <span class="event-card-badge">ROBOTIK</span>
-                </div>
-                <div class="event-card-body">
-                    <h3>Kompetisi Robotika</h3>
-                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 14-16 Desember 2025</div>
-                    <p class="event-desc">Rancang dan bangun robot terbaikmu! Kategori line follower, sumo robot, dan inovasi bebas.</p>
-                    <button class="btn-card" onclick="openRegistration('Kompetisi Robotika', 'lomba')">
-                        <i class="fa-solid fa-trophy"></i> Daftar Lomba
-                    </button>
-                </div>
-            </div>
-            <!-- Lomba 6 -->
-            <div class="event-card">
-                <div class="event-card-image">
-                    <div class="img-placeholder grad-purple"><i class="fa-solid fa-mobile-screen"></i></div>
-                </div>
-                <div class="event-card-body">
-                    <h3>UI/UX Design Challenge</h3>
-                    <div class="event-date"><i class="fa-regular fa-calendar"></i> 11-17 Desember 2025</div>
-                    <p class="event-desc">Kompetisi desain antarmuka aplikasi mobile. Kreasikan ide terbaik dan menangkan hadiah!</p>
-                    <button class="btn-card" onclick="openRegistration('UI/UX Design Challenge', 'lomba')">
-                        <i class="fa-solid fa-trophy"></i> Daftar Lomba
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== CTA BANNER ==================== -->
-    <section class="cta-banner" id="daftar">
-        <div class="cta-inner">
-            <div class="cta-text">
-                <h3>Siap Berpartisipasi?</h3>
-                <p>Jangan lewatkan kesempatan! Daftar sekarang dan raih pengalaman tak terlupakan.</p>
-            </div>
-            <div class="cta-buttons">
-                <button class="btn-primary" onclick="openRegistration('Mata Acara Pilihan', 'acara')">
-                    <i class="fa-solid fa-ticket"></i> Daftar Mata Acara
-                </button>
-                <button class="btn-outline" onclick="openRegistration('Lomba Pilihan', 'lomba')">
-                    <i class="fa-solid fa-trophy"></i> Daftar Lomba
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== MODAL REGISTRATION ==================== -->
-    <div class="modal-overlay" id="registrationModal">
-        <div class="modal-dialog">
-            <button class="modal-close" onclick="closeModal('registrationModal')">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <h3 id="modalTitle">Form Pendaftaran</h3>
-            <form id="registrationForm" onsubmit="handleSubmit(event)">
-                <input type="hidden" id="regType" value="acara">
-                <input type="hidden" id="regItemName" value="">
-                <div class="form-group">
-                    <label for="regName">Nama Lengkap</label>
-                    <input type="text" id="regName" placeholder="Masukkan nama lengkap" required>
-                </div>
-                <div class="form-group">
-                    <label for="regEmail">Email</label>
-                    <input type="email" id="regEmail" placeholder="contoh@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="regPhone">Nomor WhatsApp</label>
-                    <input type="tel" id="regPhone" placeholder="0812-3456-7890" required>
-                </div>
-                <div class="form-group">
-                    <label for="regInstitution">Asal Institusi</label>
-                    <input type="text" id="regInstitution" placeholder="Nama sekolah / universitas / umum" required>
-                </div>
-                <button type="submit" class="btn-submit">
-                    <i class="fa-solid fa-paper-plane"></i> Kirim Pendaftaran
-                </button>
-            </form>
+    <!-- MODAL -->
+    <div class="modal-overlay" id="eventModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h3 id="modalTitle"></h3>
+            <div class="date" id="modalDate"></div>
+            <p id="modalDesc"></p>
         </div>
     </div>
 
-    <!-- ==================== MODAL LOGIN ==================== -->
-    <div class="modal-overlay" id="loginModal">
-        <div class="modal-dialog">
-            <button class="modal-close" onclick="closeModal('loginModal')">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <h3>Log In</h3>
-            <form onsubmit="handleAuthSubmit(event, 'login')">
-                <div class="form-group">
-                    <label for="loginEmail">Email</label>
-                    <input type="email" id="loginEmail" placeholder="Masukkan email" required>
-                </div>
-                <div class="form-group">
-                    <label for="loginPassword">Password</label>
-                    <input type="password" id="loginPassword" placeholder="Masukkan password" required>
-                </div>
-                <button type="submit" class="btn-submit">Masuk</button>
-            </form>
-            <p style="text-align:center;margin-top:1rem;font-size:0.8rem;color:var(--text-light);">
-                Belum punya akun?
-                <a href="#" style="color:var(--pink-primary);font-weight:600;text-decoration:none;" onclick="closeModal('loginModal');setTimeout(function(){showModal('signup');},300);">Sign Up</a>
-            </p>
-        </div>
-    </div>
-
-    <!-- ==================== MODAL SIGNUP ==================== -->
-    <div class="modal-overlay" id="signupModal">
-        <div class="modal-dialog">
-            <button class="modal-close" onclick="closeModal('signupModal')">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <h3>Sign Up</h3>
-            <form onsubmit="handleAuthSubmit(event, 'signup')">
-                <div class="form-group">
-                    <label for="signupName">Nama Lengkap</label>
-                    <input type="text" id="signupName" placeholder="Masukkan nama lengkap" required>
-                </div>
-                <div class="form-group">
-                    <label for="signupEmail">Email</label>
-                    <input type="email" id="signupEmail" placeholder="Masukkan email" required>
-                </div>
-                <div class="form-group">
-                    <label for="signupPassword">Password</label>
-                    <input type="password" id="signupPassword" placeholder="Buat password (min. 6 karakter)" minlength="6" required>
-                </div>
-                <button type="submit" class="btn-submit">Daftar</button>
-            </form>
-            <p style="text-align:center;margin-top:1rem;font-size:0.8rem;color:var(--text-light);">
-                Sudah punya akun?
-                <a href="#" style="color:var(--purple-primary);font-weight:600;text-decoration:none;" onclick="closeModal('signupModal');setTimeout(function(){showModal('login');},300);">Log In</a>
-            </p>
-        </div>
-    </div>
-
-    <!-- ==================== TOAST ==================== -->
-    <div class="toast" id="toast"></div>
-
-    <!-- ==================== FOOTER ==================== -->
+    <!-- FOOTER -->
     <footer class="footer">
         <p>&copy; 2025 <strong>INI LHO ITS!</strong> - Dies Natalis. All rights reserved.</p>
     </footer>
 
-    <!-- ==================== SCRIPTS ==================== -->
     <script>
         (function() {
-            var navbar = document.getElementById('navbar');
-            var ticking = false;
-            var lastScrollY = 0;
-
+            // floating bubbles
+            const bubbleContainer = document.getElementById('floatingBubbles');
+            const colors = ['#d98cdb','#fdc6d9','#fd79a8','#e8d5f5','#ffe0e8','#f3e3fa'];
+            for (let i=0; i<18; i++) {
+                const b = document.createElement('div'); b.className='bubble';
+                const size = Math.floor(Math.random()*80)+30;
+                b.style.width=size+'px'; b.style.height=size+'px';
+                b.style.left=Math.random()*90+'%'; b.style.top=Math.random()*90+'%';
+                b.style.background=colors[Math.floor(Math.random()*colors.length)];
+                b.style.animationDuration=(Math.random()*10+10)+'s';
+                b.style.animationDelay=(Math.random()*8)+'s';
+                bubbleContainer.appendChild(b);
+            }
+            // scroll progress
+            const progressBar = document.getElementById('scrollProgressBar');
+            window.addEventListener('scroll', ()=>{
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                progressBar.style.width = docHeight>0 ? (scrollTop/docHeight*100)+'%' : '0%';
+            });
+            // navbar
+            const navbar = document.getElementById('navbar');
+            let ticking = false;
             function onScroll() {
-                var scrollY = window.scrollY;
-                if (scrollY > 30) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
+                if(window.scrollY>30) navbar.classList.add('scrolled');
+                else navbar.classList.remove('scrolled');
                 updateActiveNavLink();
                 ticking = false;
             }
-
-            window.addEventListener('scroll', function() {
-                if (!ticking) {
-                    requestAnimationFrame(onScroll);
-                    ticking = true;
-                }
-            }, { passive: true });
-
-            // Mobile menu toggle
-            function toggleMobileMenu() {
-                var navLinks = document.getElementById('navLinks');
-                navLinks.classList.toggle('show');
-            }
-
-            // Close mobile menu when a link is clicked
-            var navLinkItems = document.querySelectorAll('#navLinks a');
-            for (var i = 0; i < navLinkItems.length; i++) {
-                navLinkItems[i].addEventListener('click', function() {
+            window.addEventListener('scroll', ()=>{ if(!ticking){ requestAnimationFrame(onScroll); ticking=true; } }, {passive:true});
+            function toggleMobileMenu() { document.getElementById('navLinks').classList.toggle('show'); }
+            window.toggleMobileMenu = toggleMobileMenu;
+            document.querySelectorAll('#navLinks a').forEach(link => {
+                link.addEventListener('click', function(){
                     document.getElementById('navLinks').classList.remove('show');
+                    const id = this.getAttribute('data-section');
+                    const sec = document.getElementById(id);
+                    if(sec) {
+                        const offset = navbar.offsetHeight + 20;
+                        const pos = sec.getBoundingClientRect().top + window.pageYOffset - offset;
+                        window.scrollTo({top:pos, behavior:'smooth'});
+                    }
                 });
-            }
-
-            // Update active nav link
+            });
             function updateActiveNavLink() {
-                var sections = ['beranda', 'acara', 'lomba', 'daftar'];
-                var navLinksAll = document.querySelectorAll('#navLinks a');
-                var currentSection = 'beranda';
-
-                for (var i = 0; i < sections.length; i++) {
-                    var section = document.getElementById(sections[i]);
-                    if (section) {
-                        var rect = section.getBoundingClientRect();
-                        if (rect.top <= 150 && rect.bottom >= 100) {
-                            currentSection = sections[i];
-                        }
-                    }
-                }
-
-                for (var j = 0; j < navLinksAll.length; j++) {
-                    navLinksAll[j].classList.remove('active');
-                    if (navLinksAll[j].getAttribute('data-section') === currentSection) {
-                        navLinksAll[j].classList.add('active');
-                    }
-                }
-            }
-
-            // Smooth scroll for nav links
-            for (var k = 0; k < navLinkItems.length; k++) {
-                navLinkItems[k].addEventListener('click', function(e) {
-                    e.preventDefault();
-                    var targetId = this.getAttribute('data-section');
-                    var targetSection = document.getElementById(targetId);
-                    if (targetSection) {
-                        var offset = navbar.offsetHeight + 20;
-                        var targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - offset;
-                        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                const sections = ['beranda','timeline'];
+                let current = 'beranda';
+                sections.forEach(id => {
+                    const sec = document.getElementById(id);
+                    if(sec) {
+                        const r = sec.getBoundingClientRect();
+                        if(r.top <= 150 && r.bottom >= 100) current = id;
                     }
                 });
-            }
-
-            // Modal functions
-            window.showModal = function(type) {
-                var modalId;
-                if (type === 'login') modalId = 'loginModal';
-                else if (type === 'signup') modalId = 'signupModal';
-                else modalId = type;
-
-                var modal = document.getElementById(modalId);
-                if (modal) {
-                    modal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                }
-            };
-
-            window.closeModal = function(modalId) {
-                var modal = document.getElementById(modalId);
-                if (modal) {
-                    modal.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            };
-
-            // Close modal on overlay click
-            var overlays = document.querySelectorAll('.modal-overlay');
-            for (var m = 0; m < overlays.length; m++) {
-                overlays[m].addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        this.classList.remove('active');
-                        document.body.style.overflow = '';
-                    }
+                document.querySelectorAll('#navLinks a').forEach(a => {
+                    a.classList.remove('active');
+                    if(a.getAttribute('data-section')===current) a.classList.add('active');
                 });
             }
+        })();
 
-            // Close modal with Escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    var activeModals = document.querySelectorAll('.modal-overlay.active');
-                    for (var n = 0; n < activeModals.length; n++) {
-                        activeModals[n].classList.remove('active');
-                    }
-                    document.body.style.overflow = '';
+        // TIMELINE LOGIC
+        document.addEventListener('DOMContentLoaded', () => {
+            // EVENTS DATA – add/edit as many as you like
+            const events = [
+                { date: "10 Mei 2025", title: "Pembukaan", desc: "Upacara pembukaan Dies Natalis ke-11, sambutan rektor, dan pemotongan tumpeng." },
+                { date: "11 Mei 2025", title: "Seminar Nasional", desc: "Talkshow inspiratif bersama tokoh keuangan negara dan alumni sukses." },
+                { date: "12 Mei 2025", title: "Workshop Kreatif", desc: "Pelatihan desain grafis, fotografi, dan penulisan ilmiah." },
+                { date: "13 Mei 2025", title: "Kompetisi Debat", desc: "Lomba debat bahasa Indonesia antarfakultas." },
+                { date: "14 Mei 2025", title: "Pentas Seni", desc: "Pertunjukan musik, tari, dan teater dari UKM kesenian." },
+                { date: "15 Mei 2025", title: "Bakti Sosial", desc: "Donor darah, pengobatan gratis, dan bakti lingkungan." },
+                { date: "16 Mei 2025", title: "Malam Puncak", desc: "Konser spektakuler dengan bintang tamu nasional dan kembang api." }
+            ];
+
+            const snakeTimeline = document.getElementById('snakeTimeline');
+            const snakeSvg = document.getElementById('snakeSvg');
+            const modal = document.getElementById('eventModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDate = document.getElementById('modalDate');
+            const modalDesc = document.getElementById('modalDesc');
+            const modalClose = document.getElementById('modalClose');
+
+            const nodeSpacingY = 140;
+            const totalHeight = events.length * nodeSpacingY + 100;
+            snakeTimeline.style.height = totalHeight + 'px';
+
+            const viewBoxWidth = 800;
+            const viewBoxHeight = totalHeight;
+            snakeSvg.setAttribute('viewBox', `0 0 ${viewBoxWidth} ${viewBoxHeight}`);
+
+            // Build path
+            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            path.classList.add('snake-path');
+            let d = '';
+            const centerX = viewBoxWidth / 2;
+            const amplitude = 180;
+            const startY = 60;
+            d += `M ${centerX} ${startY}`;
+            for (let i = 0; i < events.length; i++) {
+                const y = startY + i * nodeSpacingY;
+                const side = i % 2 === 0 ? -1 : 1;
+                const targetX = centerX + side * amplitude;
+                if (i === 0) {
+                    d += ` C ${centerX} ${y-30}, ${targetX} ${y-30}, ${targetX} ${y}`;
+                } else {
+                    const prevY = startY + (i-1)*nodeSpacingY;
+                    const prevSide = (i-1)%2===0 ? -1 : 1;
+                    const prevX = centerX + prevSide*amplitude;
+                    d += ` C ${prevX} ${prevY+nodeSpacingY/2}, ${targetX} ${y-nodeSpacingY/2}, ${targetX} ${y}`;
                 }
+            }
+            path.setAttribute('d', d);
+            snakeSvg.appendChild(path);
+
+            // Place nodes using percentages for perfect alignment
+            events.forEach((event, idx) => {
+                const y = startY + idx * nodeSpacingY;
+                const side = idx % 2 === 0 ? -1 : 1;
+                const targetX = centerX + side * amplitude;
+                const leftPercent = (targetX / viewBoxWidth) * 100;
+                const topPercent = (y / viewBoxHeight) * 100;
+
+                const node = document.createElement('div');
+                node.className = 'timeline-node';
+                node.style.left = leftPercent + '%';
+                node.style.top = topPercent + '%';
+                node.textContent = idx + 1;
+                node.setAttribute('data-index', idx);
+                node.addEventListener('click', () => {
+                    // remove active from others
+                    document.querySelectorAll('.timeline-node.active').forEach(n => n.classList.remove('active'));
+                    node.classList.add('active');
+                    // show modal
+                    modalTitle.textContent = event.title;
+                    modalDate.textContent = event.date;
+                    modalDesc.textContent = event.desc;
+                    modal.classList.add('show');
+                });
+                snakeTimeline.appendChild(node);
             });
 
-            // Open registration modal
-            window.openRegistration = function(itemName, type) {
-                var modal = document.getElementById('registrationModal');
-                var title = document.getElementById('modalTitle');
-                var regType = document.getElementById('regType');
-                var regItemName = document.getElementById('regItemName');
+            // Modal close handlers
+            modalClose.addEventListener('click', () => modal.classList.remove('show'));
+            modal.addEventListener('click', (e) => { if(e.target === modal) modal.classList.remove('show'); });
 
-                if (modal && title && regType && regItemName) {
-                    regType.value = type;
-                    regItemName.value = itemName;
-                    var label = type === 'lomba' ? 'Lomba' : 'Mata Acara';
-                    title.textContent = 'Daftar ' + label + ': ' + itemName;
-                    modal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                    document.getElementById('registrationForm').reset();
-                }
-            };
+            // scroll animations
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => { if(entry.isIntersecting) { entry.target.classList.add('show'); observer.unobserve(entry.target); } });
+            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+            document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 
-            // Handle registration form submission
-            window.handleSubmit = function(event) {
-                event.preventDefault();
-                var itemName = document.getElementById('regItemName').value;
-                var type = document.getElementById('regType').value;
-                var label = type === 'lomba' ? 'lomba' : 'mata acara';
-
-                closeModal('registrationModal');
-                showToast('Pendaftaran "' + itemName + '" berhasil! Kami akan menghubungi Anda melalui WhatsApp.', 'success');
-                document.getElementById('registrationForm').reset();
-            };
-
-            // Handle auth form submission
-            window.handleAuthSubmit = function(event, type) {
-                event.preventDefault();
-                var label = type === 'login' ? 'Log In' : 'Sign Up';
-                var modalId = type === 'login' ? 'loginModal' : 'signupModal';
-
-                closeModal(modalId);
-                showToast(label + ' berhasil! Selamat datang di INI LHO ITS! 2025.', 'success');
-            };
-
-            // Toast notification
-            function showToast(message, type) {
-                var toast = document.getElementById('toast');
-                toast.textContent = message;
-                toast.className = 'toast ' + (type || '') + ' show';
-                clearTimeout(toast._timeout);
-                toast._timeout = setTimeout(function() {
-                    toast.classList.remove('show');
-                }, 3500);
+            // feature list stagger
+            const featureItems = document.querySelectorAll('#aboutusFeatureList li');
+            if (featureItems.length) {
+                const featObserver = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if(entry.isIntersecting) {
+                            featureItems.forEach((item, i) => setTimeout(() => item.classList.add('show'), i*100));
+                            featObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.2 });
+                featObserver.observe(featureItems[0]);
             }
-
-            // Expose toggleMobileMenu globally
-            window.toggleMobileMenu = toggleMobileMenu;
-
-            // Initial active nav link
-            updateActiveNavLink();
-        })();
+        });
     </script>
 </body>
 </html>
