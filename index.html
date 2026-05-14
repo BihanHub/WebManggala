@@ -32,6 +32,16 @@
             --radius-lg: 20px;
             --radius-xl: 28px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+            /* ----- Road‑style timeline customization ----- */
+            --road-border-width: 60;          /* thickness of solid road edge */
+            --road-center-width: 18;           /* thickness of dashed centre line */
+            --road-dash-length: 22;           /* dash length for centre */
+            --road-dash-gap: 18;              /* gap between dashes */
+            --road-border-color: url(#snakeGradient); /* road border gradient */
+            --road-center-color: #fff5fa;     /* centre line colour (light) */
+            --road-glow-blur: 6;
+            --draw-speed: 1.6s;               /* drawing animation duration */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -209,59 +219,105 @@
         .aboutus-card .card-info h4 { font-weight: 700; font-size: 1rem; margin-bottom: 0.2rem; color: var(--text-dark); }
         .aboutus-card .card-info p { font-size: 0.85rem; color: var(--text-light); line-height: 1.4; }
 
-        /* TIMELINE SNAKE */
+        /* TIMELINE SNAKE - HORIZONTAL ROAD */
         .timeline-section { padding: 80px 0; background: linear-gradient(180deg, #ffffff 0%, #fef7fb 100%); position: relative; z-index: 1; }
-        .timeline-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-        .timeline-container h2 { text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 3rem; color: var(--text-dark); }
+        .timeline-container { max-width: 100%; margin: 0 auto; padding: 0 2rem; }
+        .timeline-container h2 { text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; color: var(--text-dark); }
         .timeline-container h2 .highlight { background: linear-gradient(135deg, var(--purple-primary), var(--pink-primary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-        .snake-wrapper { position: relative; width: 100%; overflow-x: auto; padding: 2rem 0 0; }
-        .snake-timeline { position: relative; width: 100%; margin: 0 auto; }
+        .snake-wrapper { position: relative; width: 100%; overflow-x: auto; overflow-y: visible; padding: 1.5rem 0 2.5rem; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; cursor: grab; }
+        .snake-wrapper:active { cursor: grabbing; }
+        .snake-wrapper::-webkit-scrollbar { height: 8px; }
+        .snake-wrapper::-webkit-scrollbar-track { background: rgba(184, 77, 186, 0.06); border-radius: 10px; }
+        .snake-wrapper::-webkit-scrollbar-thumb { background: linear-gradient(90deg, var(--purple-light), var(--pink-light)); border-radius: 10px; }
+        .snake-wrapper::-webkit-scrollbar-thumb:hover { background: linear-gradient(90deg, var(--purple-primary), var(--pink-primary)); }
+        .snake-timeline { position: relative; margin: 0 auto; min-height: 420px; }
         .snake-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
-        .snake-path { fill: none; stroke: var(--purple-soft); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 8 6; opacity: 0.6; }
+
+        /* ----- ROAD COMPONENTS (two overlapping paths) ----- */
+        .road-border,
+        .road-centreline {
+            fill: none;
+            stroke-linejoin: round;
+        }
+        /* Solid road edge */
+        .road-border {
+            stroke: var(--road-border-color);
+            stroke-width: var(--road-border-width);
+            stroke-linecap: round;
+            filter: url(#snakeGlow);
+            opacity: 0.9;
+        }
+        /* Dashed centre lane */
+        .road-centreline {
+            stroke: var(--road-center-color);
+            stroke-width: var(--road-center-width);
+            stroke-linecap: square;
+            stroke-dasharray: var(--road-dash-length) var(--road-dash-gap);
+            opacity: 0.95;
+        }
+
+        /* Drawing animation (applied to both paths) */
+        .road-border:not(.draw),
+        .road-centreline:not(.draw) {
+            stroke-dasharray: var(--path-length);
+            stroke-dashoffset: var(--path-length);
+        }
+        .road-border.draw,
+        .road-centreline.draw {
+            animation: drawRoad var(--draw-speed) ease-in-out forwards;
+        }
+        @keyframes drawRoad {
+            0% {
+                stroke-dashoffset: var(--path-length);
+                stroke-dasharray: var(--path-length);
+            }
+            100% {
+                stroke-dashoffset: 0;
+                stroke-dasharray: var(--path-length);
+            }
+        }
+        /* After drawing, centreline gets its actual dash pattern */
+        .road-centreline.draw {
+            animation-fill-mode: forwards;
+        }
+        .road-centreline.draw.anim-done {
+            stroke-dasharray: var(--road-dash-length) var(--road-dash-gap);
+            stroke-dashoffset: 0;
+        }
+
         .timeline-node {
             position: absolute; z-index: 2; cursor: pointer;
-            width: 70px; height: 70px; background: white; border-radius: 50%;
-            box-shadow: 0 6px 20px rgba(107, 29, 110, 0.2); border: 3px solid var(--purple-primary);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
-            font-weight: 700; color: var(--purple-primary); font-size: 1rem;
-            text-align: center; line-height: 1.2; padding: 5px;
+            width: 72px; height: 72px; background: white; border-radius: 50%;
+            box-shadow: 0 6px 24px rgba(107, 29, 110, 0.22); border: 4px solid var(--purple-primary);
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
+            font-weight: 700; color: var(--purple-primary); font-size: 1.1rem;
+            text-align: center; line-height: 1.2;
             display: flex; align-items: center; justify-content: center;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%); user-select: none; -webkit-tap-highlight-color: transparent;
+            font-size: 10px;
         }
-        .timeline-node:hover { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 12px 30px rgba(232, 67, 147, 0.4); border-color: var(--pink-primary); }
-        .timeline-node.active { background: var(--purple-primary); color: white; border-color: var(--pink-primary); }
+        .timeline-node:hover { transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 14px 36px rgba(232, 67, 147, 0.45); border-color: var(--pink-primary); background: #fff5fa; z-index: 5; }
+        .timeline-node:active { transform: translate(-50%, -50%) scale(0.95); transition: transform 0.1s ease; }
+        .timeline-node.active { background: var(--purple-primary); color: white; border-color: var(--pink-primary); box-shadow: 0 10px 32px rgba(232, 67, 147, 0.5); animation: nodePulse 2s ease-in-out infinite; }
+        @keyframes nodePulse { 0%,100% { box-shadow: 0 10px 32px rgba(232, 67, 147, 0.5); } 50% { box-shadow: 0 16px 44px rgba(232, 67, 147, 0.7); } }
+        .timeline-label { position: absolute; z-index: 3; pointer-events: none; font-size: 0.72rem; font-weight: 500; color: var(--text-medium); white-space: nowrap; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.85); padding: 0.25rem 0.7rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(107, 29, 110, 0.08); letter-spacing: -0.2px; transition: opacity 0.3s ease; }
+        .snake-hint { text-align: center; margin-top: 0.8rem; font-size: 0.8rem; color: var(--text-light); opacity: 0.7; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .snake-hint i { animation: hintBounce 1.5s ease-in-out infinite; }
+        @keyframes hintBounce { 0%,100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
 
         /* MODAL */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); z-index: 2000; display: flex;
-            align-items: center; justify-content: center; opacity: 0; visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
         .modal-overlay.show { opacity: 1; visibility: visible; }
-        .modal-content {
-            background: white; border-radius: var(--radius-xl); padding: 2.5rem 2rem;
-            max-width: 500px; width: 90%; text-align: center; position: relative;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3); transform: translateY(30px);
-            transition: transform 0.3s ease;
-        }
+        .modal-content { background: white; border-radius: var(--radius-xl); padding: 2.5rem 2rem; max-width: 500px; width: 90%; text-align: center; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.3); transform: translateY(30px); transition: transform 0.3s ease; }
         .modal-overlay.show .modal-content { transform: translateY(0); }
-        .modal-close {
-            position: absolute; top: 1rem; right: 1rem; background: none; border: none;
-            font-size: 1.5rem; cursor: pointer; color: var(--text-medium);
-            transition: color 0.2s;
-        }
+        .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-medium); transition: color 0.2s; }
         .modal-close:hover { color: var(--pink-primary); }
         .modal-content h3 { font-size: 1.8rem; color: var(--purple-primary); margin-bottom: 0.5rem; }
         .modal-content .date { font-weight: 600; color: var(--pink-primary); margin-bottom: 1rem; }
         .modal-content p { color: var(--text-medium); line-height: 1.6; }
 
         /* FOOTER */
-        .footer {
-            background: white; border-top: 1px solid rgba(184, 77, 186, 0.15);
-            padding: 2rem; text-align: center; color: var(--text-light); font-size: 0.85rem;
-            position: relative; z-index: 1; opacity: 0; animation: fadeIn 0.8s ease 1s forwards;
-        }
+        .footer { background: white; border-top: 1px solid rgba(184, 77, 186, 0.15); padding: 2rem; text-align: center; color: var(--text-light); font-size: 0.85rem; position: relative; z-index: 1; opacity: 0; animation: fadeIn 0.8s ease 1s forwards; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .footer strong { color: var(--purple-primary); }
 
@@ -271,6 +327,10 @@
             .aboutus-description { max-width: 100%; }
             .aboutus-features { align-items: center; }
             .hero-content h1 { font-size: 2.5rem; }
+            .snake-timeline { min-height: 380px; }
+            .timeline-node { width: 62px; height: 62px; font-size: 0.95rem; border-width: 3.5px; }
+            .timeline-label { font-size: 0.68rem; padding: 0.2rem 0.6rem; }
+            :root { --road-border-width: 32; --road-center-width: 6; }
         }
         @media (max-width: 900px) {
             .aboutus-cards { grid-template-columns: 1fr; }
@@ -282,12 +342,20 @@
             .nav-links.show { display: flex; }
             .mobile-menu-btn { display: block; }
             .hero-content h1 { font-size: 2rem; }
-            .timeline-node { width: 55px; height: 55px; font-size: 0.8rem; }
+            .snake-timeline { min-height: 330px; }
+            .timeline-node { width: 54px; height: 54px; font-size: 0.85rem; border-width: 3px; }
+            .timeline-label { font-size: 0.65rem; padding: 0.18rem 0.5rem; }
+            :root { --road-border-width: 24; --road-center-width: 5; --road-dash-length: 16; --road-dash-gap: 12; }
+            .timeline-container h2 { font-size: 1.8rem; }
         }
         @media (max-width: 480px) {
             .logo-icon { width: 36px; height: 36px; font-size: 0.85rem; border-radius: 10px; }
             .hero-content h1 { font-size: 1.8rem; }
             .aboutus-text h2 { font-size: 1.6rem; }
+            .snake-timeline { min-height: 280px; }
+            .timeline-node { width: 44px; height: 44px; font-size: 0.75rem; border-width: 2.5px; }
+            .timeline-label { font-size: 0.6rem; padding: 0.15rem 0.4rem; border-radius: 8px; }
+            :root { --road-border-width: 18; --road-center-width: 4; --road-dash-length: 12; --road-dash-gap: 10; }
         }
     </style>
 </head>
@@ -304,9 +372,10 @@
             </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#beranda" class="active" data-section="beranda">Beranda</a></li>
+                <li><a href="#tentang" data-section="tentang">Tentang</a></li>
                 <li><a href="#timeline" data-section="timeline">Timeline</a></li>
             </ul>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fa-solid fa-bars"></i></button>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
         </div>
     </nav>
 
@@ -365,14 +434,17 @@
         </div>
     </section>
 
-    <!-- TIMELINE SNAKE -->
+    <!-- TIMELINE SNAKE - HORIZONTAL ROAD -->
     <section class="timeline-section" id="timeline">
         <div class="timeline-container">
             <h2 class="animate-on-scroll from-bottom">📅 <span class="highlight">Timeline Kegiatan</span></h2>
-            <div class="snake-wrapper">
+            <div class="snake-wrapper" id="snakeWrapper">
                 <div class="snake-timeline" id="snakeTimeline">
-                    <svg class="snake-svg" id="snakeSvg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet"></svg>
+                    <svg class="snake-svg" id="snakeSvg" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet"></svg>
                 </div>
+            </div>
+            <div class="snake-hint">
+                <i class="fa-solid fa-arrows-left-right"></i> Geser horizontal untuk melihat seluruh timeline
             </div>
         </div>
     </section>
@@ -439,7 +511,7 @@
                 });
             });
             function updateActiveNavLink() {
-                const sections = ['beranda','timeline'];
+                const sections = ['beranda','tentang','timeline'];
                 let current = 'beranda';
                 sections.forEach(id => {
                     const sec = document.getElementById(id);
@@ -455,11 +527,10 @@
             }
         })();
 
-        // TIMELINE LOGIC
+        // TIMELINE – scroll‑triggered road drawing
         document.addEventListener('DOMContentLoaded', () => {
-            // EVENTS DATA – add/edit as many as you like
             const events = [
-                { date: "10 Mei 2025", title: "Pembukaan", desc: "Upacara pembukaan Dies Natalis ke-11, sambutan rektor, dan pemotongan tumpeng." },
+                { date: "10 Mei 2025", title: "Pembukaan", desc: "Upacara pembukaan Dies Natalis ke-11, sambutan direktur, dan pemotongan tumpeng." },
                 { date: "11 Mei 2025", title: "Seminar Nasional", desc: "Talkshow inspiratif bersama tokoh keuangan negara dan alumni sukses." },
                 { date: "12 Mei 2025", title: "Workshop Kreatif", desc: "Pelatihan desain grafis, fotografi, dan penulisan ilmiah." },
                 { date: "13 Mei 2025", title: "Kompetisi Debat", desc: "Lomba debat bahasa Indonesia antarfakultas." },
@@ -470,91 +541,169 @@
 
             const snakeTimeline = document.getElementById('snakeTimeline');
             const snakeSvg = document.getElementById('snakeSvg');
+            const snakeWrapper = document.getElementById('snakeWrapper');
             const modal = document.getElementById('eventModal');
             const modalTitle = document.getElementById('modalTitle');
             const modalDate = document.getElementById('modalDate');
             const modalDesc = document.getElementById('modalDesc');
             const modalClose = document.getElementById('modalClose');
 
-            const nodeSpacingY = 140;
-            const totalHeight = events.length * nodeSpacingY + 100;
-            snakeTimeline.style.height = totalHeight + 'px';
+            const nodeSpacingX = 200;
+            const startX = 90;
+            const centerY = 200;
+            const amplitude = 135;
+            const viewBoxHeight = 400;
+            const tailPadding = 100;
+            const totalWidth = startX + (events.length - 1) * nodeSpacingX + tailPadding;
 
-            const viewBoxWidth = 800;
-            const viewBoxHeight = totalHeight;
-            snakeSvg.setAttribute('viewBox', `0 0 ${viewBoxWidth} ${viewBoxHeight}`);
+            snakeTimeline.style.width = totalWidth + 'px';
+            snakeTimeline.style.height = viewBoxHeight + 'px';
+            snakeSvg.setAttribute('viewBox', `0 0 ${totalWidth} ${viewBoxHeight}`);
 
-            // Build path
-            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path.classList.add('snake-path');
+            // SVG defs
+            const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+            const gradient = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
+            gradient.setAttribute('id', 'snakeGradient');
+            gradient.setAttribute('x1', '0'); gradient.setAttribute('y1', '0');
+            gradient.setAttribute('x2', totalWidth); gradient.setAttribute('y2', '0');
+            gradient.setAttribute('gradientUnits', 'userSpaceOnUse');
+            const stop1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+            stop1.setAttribute('offset', '0%'); stop1.setAttribute('stop-color', '#6b1d6e');
+            const stop2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+            stop2.setAttribute('offset', '50%'); stop2.setAttribute('stop-color', '#e84393');
+            const stop3 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+            stop3.setAttribute('offset', '100%'); stop3.setAttribute('stop-color', '#b84dba');
+            gradient.appendChild(stop1); gradient.appendChild(stop2); gradient.appendChild(stop3);
+            defs.appendChild(gradient);
+
+            const filter = document.createElementNS("http://www.w3.org/2000/svg", "filter");
+            filter.setAttribute('id', 'snakeGlow');
+            filter.setAttribute('x', '-20%'); filter.setAttribute('y', '-20%');
+            filter.setAttribute('width', '140%'); filter.setAttribute('height', '140%');
+            const blur = document.createElementNS("http://www.w3.org/2000/svg", "feGaussianBlur");
+            blur.setAttribute('stdDeviation', '5'); blur.setAttribute('result', 'blur');
+            const merge = document.createElementNS("http://www.w3.org/2000/svg", "feMerge");
+            const mergeNode1 = document.createElementNS("http://www.w3.org/2000/svg", "feMergeNode");
+            mergeNode1.setAttribute('in', 'blur');
+            const mergeNode2 = document.createElementNS("http://www.w3.org/2000/svg", "feMergeNode");
+            mergeNode2.setAttribute('in', 'SourceGraphic');
+            merge.appendChild(mergeNode1); merge.appendChild(mergeNode2);
+            filter.appendChild(blur); filter.appendChild(merge);
+            defs.appendChild(filter);
+            snakeSvg.appendChild(defs);
+
+            // Build the shared path data
             let d = '';
-            const centerX = viewBoxWidth / 2;
-            const amplitude = 180;
-            const startY = 60;
-            d += `M ${centerX} ${startY}`;
-            for (let i = 0; i < events.length; i++) {
-                const y = startY + i * nodeSpacingY;
-                const side = i % 2 === 0 ? -1 : 1;
-                const targetX = centerX + side * amplitude;
-                if (i === 0) {
-                    d += ` C ${centerX} ${y-30}, ${targetX} ${y-30}, ${targetX} ${y}`;
-                } else {
-                    const prevY = startY + (i-1)*nodeSpacingY;
-                    const prevSide = (i-1)%2===0 ? -1 : 1;
-                    const prevX = centerX + prevSide*amplitude;
-                    d += ` C ${prevX} ${prevY+nodeSpacingY/2}, ${targetX} ${y-nodeSpacingY/2}, ${targetX} ${y}`;
-                }
+            const pathStartX = 25;
+            d += `M ${pathStartX} ${centerY}`;
+            const firstX = startX;
+            const firstY = centerY - amplitude;
+            const firstDist = firstX - pathStartX;
+            d += ` C ${pathStartX + firstDist*0.4} ${centerY}, ${firstX - firstDist*0.4} ${firstY}, ${firstX} ${firstY}`;
+            for (let i=0; i<events.length-1; i++) {
+                const currX = startX + i*nodeSpacingX;
+                const currY = i%2===0 ? centerY - amplitude : centerY + amplitude;
+                const nextX = startX + (i+1)*nodeSpacingX;
+                const nextY = (i+1)%2===0 ? centerY - amplitude : centerY + amplitude;
+                const cpOffset = nodeSpacingX * 0.4;
+                d += ` C ${currX + cpOffset} ${currY}, ${nextX - cpOffset} ${nextY}, ${nextX} ${nextY}`;
             }
-            path.setAttribute('d', d);
-            snakeSvg.appendChild(path);
+            const lastX = startX + (events.length-1)*nodeSpacingX;
+            const lastY = (events.length-1)%2===0 ? centerY - amplitude : centerY + amplitude;
+            const tailX = lastX + 70;
+            const tailDist = tailX - lastX;
+            d += ` C ${lastX + tailDist*0.4} ${lastY}, ${tailX - tailDist*0.3} ${centerY}, ${tailX} ${centerY}`;
 
-            // Place nodes using percentages for perfect alignment
+            // Create road border path (solid)
+            const roadBorder = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            roadBorder.setAttribute('d', d);
+            roadBorder.classList.add('road-border');
+            snakeSvg.appendChild(roadBorder);
+
+            // Create centre line path (dashed)
+            const roadCentre = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            roadCentre.setAttribute('d', d);
+            roadCentre.classList.add('road-centreline');
+            snakeSvg.appendChild(roadCentre);
+
+            // Get path length for animation
+            const pathLength = roadBorder.getTotalLength();
+            snakeSvg.style.setProperty('--path-length', pathLength);
+
+            // Scroll‑triggered drawing (IntersectionObserver)
+            const timelineSection = document.getElementById('timeline');
+            const drawObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        roadBorder.classList.add('draw');
+                        roadCentre.classList.add('draw');
+                        // After animation, set centreline to its real dash pattern
+                        roadBorder.addEventListener('animationend', () => {
+                            roadCentre.classList.add('anim-done');
+                        }, { once: true });
+                        drawObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            drawObserver.observe(timelineSection);
+
+            // Place nodes & labels
             events.forEach((event, idx) => {
-                const y = startY + idx * nodeSpacingY;
-                const side = idx % 2 === 0 ? -1 : 1;
-                const targetX = centerX + side * amplitude;
-                const leftPercent = (targetX / viewBoxWidth) * 100;
-                const topPercent = (y / viewBoxHeight) * 100;
+                const x = startX + idx*nodeSpacingX;
+                const y = idx%2===0 ? centerY - amplitude : centerY + amplitude;
+                const leftPercent = (x / totalWidth)*100;
+                const topPercent = (y / viewBoxHeight)*100;
 
                 const node = document.createElement('div');
                 node.className = 'timeline-node';
                 node.style.left = leftPercent + '%';
                 node.style.top = topPercent + '%';
-                node.textContent = idx + 1;
+                node.textContent = event.date;
                 node.setAttribute('data-index', idx);
-                node.addEventListener('click', () => {
-                    // remove active from others
+                node.addEventListener('click', (e) => {
+                    e.stopPropagation();
                     document.querySelectorAll('.timeline-node.active').forEach(n => n.classList.remove('active'));
                     node.classList.add('active');
-                    // show modal
                     modalTitle.textContent = event.title;
                     modalDate.textContent = event.date;
                     modalDesc.textContent = event.desc;
                     modal.classList.add('show');
+                    node.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
                 });
                 snakeTimeline.appendChild(node);
+
+                const label = document.createElement('div');
+                label.className = 'timeline-label';
+                label.style.left = leftPercent + '%';
+                const labelY = idx%2===0 ? y - 48 : y + 48;
+                label.style.top = (labelY / viewBoxHeight)*100 + '%';
+                label.textContent = event.title;
+                snakeTimeline.appendChild(label);
             });
 
-            // Modal close handlers
+            // Modal close
             modalClose.addEventListener('click', () => modal.classList.remove('show'));
             modal.addEventListener('click', (e) => { if(e.target === modal) modal.classList.remove('show'); });
+            document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && modal.classList.contains('show')) modal.classList.remove('show'); });
 
-            // scroll animations
+            // Auto‑center first node
+            setTimeout(() => {
+                const firstNode = snakeTimeline.querySelector('.timeline-node');
+                if (firstNode && snakeWrapper.scrollWidth > snakeWrapper.clientWidth) {
+                    firstNode.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
+            }, 600);
+
+            // Other scroll animations
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => { if(entry.isIntersecting) { entry.target.classList.add('show'); observer.unobserve(entry.target); } });
             }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
             document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 
-            // feature list stagger
             const featureItems = document.querySelectorAll('#aboutusFeatureList li');
-            if (featureItems.length) {
+            if(featureItems.length) {
                 const featObserver = new IntersectionObserver(entries => {
-                    entries.forEach(entry => {
-                        if(entry.isIntersecting) {
-                            featureItems.forEach((item, i) => setTimeout(() => item.classList.add('show'), i*100));
-                            featObserver.unobserve(entry.target);
-                        }
-                    });
+                    entries.forEach(entry => { if(entry.isIntersecting) { featureItems.forEach((item,i)=> setTimeout(()=>item.classList.add('show'), i*100)); featObserver.unobserve(entry.target); } });
                 }, { threshold: 0.2 });
                 featObserver.observe(featureItems[0]);
             }
